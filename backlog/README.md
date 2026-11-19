@@ -1,0 +1,38 @@
+# Backlog — zasady
+
+Lokalny backlog jest **źródłem prawdy o postępie**. GitHub Issues (`cezi/parafialubiana`) to jego lustrzane odbicie dla zlecającego i historii.
+
+## Format
+
+Plik [BACKLOG.md](BACKLOG.md) — jedna tabela na etap. Kolumny:
+
+| Kolumna | Znaczenie |
+|---|---|
+| `ID` | stały identyfikator (`D-xx` decyzja, `E<etap>-<nr>` zadanie, `F2-<nr>` faza 2) — trafia do tytułu Issue jako prefiks `[E2-3]` |
+| `Zadanie` | krótki tytuł |
+| `Etykiety` | etykiety GitHub, po przecinku |
+| `Status` | `todo` · `w toku` · `blokada` · `review` · `done` |
+| `Issue` | numer Issue w GitHub (`#12`) — uzupełniany przy synchronizacji |
+
+Szczegóły zadań (kryteria akceptacji) są w [docs/PLAN_WDROZENIA.md](../docs/PLAN_WDROZENIA.md); Issue zawiera kopię kryterium i link do planu.
+
+## Mapowanie na GitHub
+
+- Kamienie milowe: `Etap 0` … `Etap 5`, `Faza 2`.
+- Etykiety: `decyzja`, `infra`, `cms`, `frontend`, `pwa`, `push`, `migracja`, `jakość`, `blokada`.
+- Status: `done` ↔ Issue zamknięte; `blokada` ↔ etykieta `blokada`; pozostałe = otwarte.
+
+## Synchronizacja
+
+```
+node scripts/backlog-sync.mjs --dry-run   # podgląd
+node scripts/backlog-sync.mjs             # synchronizacja
+node scripts/backlog-sync.mjs --setup     # + etykiety i kamienie milowe (jednorazowo)
+```
+
+1. Wiersze bez numeru Issue → `gh issue create` (tytuł `[ID] Zadanie`, treść z planu/rejestru decyzji) i wpisanie numeru do tabeli.
+2. Istniejące → zgodność statusu (zamknięcie/otwarcie, etykieta `blokada`).
+3. Kierunek: **lokalnie → GitHub**. Komentarze i zmiany w GitHub nie nadpisują backlogu; Issues spoza backlogu są tylko raportowane.
+4. Nowe zadanie = nowy wiersz w tabeli (nowy ID), potem synchronizacja.
+
+Commit z backlogiem: `backlog: <co się zmieniło>`.

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#d9d4cb}
+a{color:oklch(0.45 0.12 20)}
+a:hover{color:#2a2420}
+*{box-sizing:border-box}
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#8a2e2a"></rect><text x="50" y="64" text-anchor="middle" font-family="Georgia,serif" font-size="44" fill="#fbf8f2">Ł</text></svg></template>
+<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:16px;padding:{{ shellPad }};font-family:'Instrument Sans',sans-serif;color:#2a2420">
+
+<sc-if value="{{ showToolbar }}" hint-placeholder-val="{{ true }}">
+<div style="width:100%;max-width:1280px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
+<div style="display:flex;flex-direction:column;gap:2px">
+<span style="font:600 15px 'Instrument Sans'">Parafia Łubiana: prototyp do konsultacji</span>
+<span style="font:13px 'Instrument Sans';color:rgba(42,36,32,.7)">Ekran: <b>{{ screenName }}</b> · Zgłaszając uwagi, podaj nazwę ekranu</span>
+</div>
+<div style="display:flex;gap:4px;background:#fbf8f2;border-radius:999px;padding:4px">
+<sc-for list="{{ devices }}" as="d" hint-placeholder-count="2">
+<span onClick="{{ d.pick }}" style="cursor:pointer;border-radius:999px;padding:8px 16px;font:600 13px 'Instrument Sans';background:{{ d.bg }};color:{{ d.color }}">{{ d.label }}</span>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<div style="width:{{ frameW }};max-width:100%;height:{{ frameH }};border-radius:{{ frameR }};box-shadow:{{ frameShadow }};overflow:hidden;background:#efe8db;display:flex;flex-direction:column;position:relative">
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div style="height:36px;flex:none;background:#e4e1da;display:flex;align-items:center;gap:8px;padding:0 14px"><span style="width:11px;height:11px;border-radius:50%;background:#d4d0c8"></span><span style="width:11px;height:11px;border-radius:50%;background:#d4d0c8"></span><span style="width:11px;height:11px;border-radius:50%;background:#d4d0c8"></span><span style="margin-left:16px;flex:0 1 420px;background:#f6f2ea;border-radius:6px;padding:5px 12px;font:12px 'Instrument Sans';color:rgba(42,36,32,.65)">parafialubiana.pl{{ urlPath }}</span></div>
+</sc-if>
+<sc-if value="{{ showStatusBar }}" hint-placeholder-val="{{ false }}">
+<div style="height:44px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 28px;font:600 14px 'Instrument Sans'"><span>9:41</span><span style="width:24px;height:11px;border:1.5px solid #2a2420;border-radius:3px"></span></div>
+</sc-if>
+
+<div ref="{{ scrollRef }}" style="flex:1;overflow-y:auto;overflow-x:hidden">
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div style="padding:20px 40px 0;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:14px 20px;flex-wrap:wrap">
+<div onClick="{{ goStart }}" style="cursor:pointer;flex:none;display:flex;align-items:center;gap:14px"><img src="assets/kolbe.jpg" alt="św. Maksymilian Maria Kolbe" style="width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:50% 30%;box-shadow:0 0 0 2px #fbf8f2,0 0 0 3px oklch(0.45 0.12 20)"><div style="display:flex;flex-direction:column;gap:3px"><span style="font:500 27px/1.05 'EB Garamond';white-space:nowrap">Parafia św. M. M. Kolbego</span><span style="font:500 13px 'Instrument Sans';color:oklch(0.45 0.12 20)">Łubiana, Diecezja Pelplińska</span></div></div>
+<span onClick="{{ goOchr }}" style="cursor:pointer;border:1.5px solid oklch(0.45 0.12 20);color:oklch(0.45 0.12 20);border-radius:999px;padding:10px 16px;font:600 14px 'Instrument Sans';white-space:nowrap">Ochrona dzieci i młodzieży</span>
+</div>
+<div style="align-self:flex-start;display:flex;align-items:center;gap:2px;background:#fbf8f2;border-radius:999px;padding:5px;font:500 14px 'Instrument Sans';flex-wrap:wrap">
+<sc-for list="{{ deskNav }}" as="n" hint-placeholder-count="7">
+<span onClick="{{ n.open }}" style="cursor:pointer;border-radius:999px;padding:9px 14px;background:{{ n.bg }};color:{{ n.color }}">{{ n.label }}</span>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ phoneHeader }}" hint-placeholder-val="{{ false }}">
+<div style="padding:6px 22px 0;display:flex;flex-direction:column;gap:4px">
+<sc-if value="{{ backLabel }}" hint-placeholder-val="{{ false }}"><span onClick="{{ goBack }}" style="cursor:pointer;align-self:flex-start;font:500 14px 'Instrument Sans';color:oklch(0.45 0.12 20);padding:6px 0">← {{ backLabel }}</span></sc-if>
+<span style="font:500 11px 'Instrument Sans';letter-spacing:.14em;text-transform:uppercase;color:oklch(0.45 0.12 20)">{{ kicker }}</span>
+</div>
+</sc-if>
+
+<div style="padding:{{ pagePad }};display:flex;flex-direction:column;gap:16px">
+
+<sc-if value="{{ deskBack }}" hint-placeholder-val="{{ false }}"><span onClick="{{ goBack }}" style="cursor:pointer;align-self:flex-start;font:500 14px 'Instrument Sans';color:oklch(0.45 0.12 20)">← {{ backLabel }}</span></sc-if>
+<sc-if value="{{ showTitle }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:4px;padding:0 6px">
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}"><span style="font:500 11px 'Instrument Sans';letter-spacing:.14em;text-transform:uppercase;color:oklch(0.45 0.12 20)">{{ kicker }}</span></sc-if>
+<h1 style="margin:0;font:500 {{ h1 }}/1.05 'EB Garamond';text-wrap:balance">{{ title }}</h1>
+<sc-if value="{{ lead }}" hint-placeholder-val="{{ false }}"><p style="margin:4px 0 0;max-width:640px;font:15px/1.5 'Instrument Sans';color:rgba(42,36,32,.72);text-wrap:pretty">{{ lead }}</p></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ pStart }}" hint-placeholder-val="{{ true }}">
+<sc-if value="{{ isPhone }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ showInstallBanner }}" hint-placeholder-val="{{ false }}">
+<div style="background:#2a2420;color:#f6f2ea;border-radius:18px;padding:8px 6px 8px 16px;display:flex;align-items:center;gap:8px">
+<span style="flex:1;font:13px/1.35 'Instrument Sans'">Dodaj parafię do ekranu telefonu</span>
+<span onClick="{{ toggleInstall }}" style="cursor:pointer;font:600 13px 'Instrument Sans';background:#f6f2ea;color:#2a2420;border-radius:999px;padding:8px 14px">Zainstaluj</span>
+<span onClick="{{ dismissInstall }}" style="cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font:400 20px 'Instrument Sans'">×</span>
+</div>
+</sc-if>
+<div style="display:flex;flex-direction:column;gap:14px;padding:0 6px">
+<div style="display:flex;align-items:center;gap:12px"><img src="assets/kolbe.jpg" alt="św. Maksymilian Maria Kolbe" style="width:48px;height:48px;flex:none;border-radius:50%;object-fit:cover;object-position:50% 30%;box-shadow:0 0 0 2px #fbf8f2,0 0 0 3px oklch(0.45 0.12 20)"><div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font:500 21px/1.1 'EB Garamond'">Parafia św. M. M. Kolbego</span><span style="font:500 13px 'Instrument Sans';color:oklch(0.45 0.12 20)">Łubiana, Diecezja Pelplińska</span></div></div>
+<span style="font:500 30px/1.05 'EB Garamond'">Piątek, 6 listopada</span>
+</div>
+</sc-if>
+<div style="display:grid;grid-template-columns:{{ g3 }};gap:16px;align-items:start">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div onClick="{{ goInt }}" style="cursor:pointer;background:#fbf8f2;border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<span style="font:500 11px 'Instrument Sans';letter-spacing:.1em;text-transform:uppercase;color:rgba(42,36,32,.65)">{{ nextKicker }}</span>
+<span style="font:400 {{ bigTime }}/0.9 'EB Garamond';color:oklch(0.45 0.12 20)">18:00</span>
+<span style="font:italic 400 19px/1.35 'EB Garamond';text-wrap:pretty">++ za dusze zm. rodziców Bronisławę i Antoniego, rodzeństwo Elżbietę, Jana i Zygmunta</span>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px"><span style="font:500 12px 'Instrument Sans';background:#efe8db;border-radius:999px;padding:5px 11px;white-space:nowrap">Dziś także 17:00 i 17:30</span><span style="font:500 12px 'Instrument Sans';background:#efe8db;border-radius:999px;padding:5px 11px;white-space:nowrap">Spowiedź od 15:30</span></div>
+</div>
+<div style="background:#fbf8f2;border-radius:24px;padding:20px 24px;display:grid;grid-template-columns:110px 1fr;gap:10px 12px;font:14px 'Instrument Sans';box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<span style="grid-column:1 / -1;font:600 20px 'EB Garamond'">Stały porządek Mszy</span>
+<span style="color:rgba(42,36,32,.65)">Niedziele</span><span>8:30, 11:00, 15:00</span>
+<span style="color:rgba(42,36,32,.65)">Dni powszednie</span><span>18:00</span>
+<span style="color:rgba(42,36,32,.65)">Kancelaria</span><span>po każdej Mszy w dni powszednie</span>
+<span onClick="{{ goNab }}" style="cursor:pointer;grid-column:1 / -1;font:500 13px 'Instrument Sans';color:oklch(0.45 0.12 20)">Nabożeństwa i sakramenty →</span>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div onClick="{{ goOgl }}" style="cursor:pointer;background:#fbf8f2;border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px"><span style="font:600 23px 'EB Garamond'">Ogłoszenia parafialne</span><span style="font:500 13px 'Instrument Sans';color:oklch(0.45 0.12 20);white-space:nowrap">Wszystkie →</span></div>
+<span style="align-self:flex-start;font:500 12px 'Instrument Sans';background:#efe8db;border-radius:999px;padding:5px 12px;line-height:1.4">Uroczystość Wszystkich Świętych · 1.11.2026</span>
+<ol style="margin:0;padding:0 0 0 20px;display:flex;flex-direction:column;gap:10px;font:17px/1.45 'EB Garamond';text-wrap:pretty">
+<sc-for list="{{ annPreview }}" as="a" hint-placeholder-count="4"><li>{{ a }}</li></sc-for>
+</ol>
+<span style="align-self:flex-start;font:600 14px 'Instrument Sans';background:oklch(0.45 0.12 20);color:#fbf8f2;border-radius:999px;padding:10px 18px">Czytaj całość</span>
+</div>
+<div onClick="{{ goBiul }}" style="cursor:pointer;background:oklch(0.45 0.12 20);color:#fbf8f2;border-radius:24px;padding:18px;display:flex;gap:16px;align-items:center">
+<div style="width:76px;aspect-ratio:1 / 1.414;flex:none;border-radius:8px;background:repeating-linear-gradient(135deg,#fbf8f2 0 8px,#efe8db 8px 16px);display:flex;align-items:center;justify-content:center;font:500 9px ui-monospace,monospace;color:rgba(42,36,32,.6)">okładka</div>
+<div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+<span style="font:600 11px 'Instrument Sans';letter-spacing:.1em;text-transform:uppercase">Nowy numer biuletynu</span>
+<span style="font:italic 500 32px/1 'EB Garamond'">Lubiano</span>
+<span style="font:13px/1.4 'Instrument Sans'">Nr 3 · listopad 2026 · PDF</span>
+<span style="font:600 13px 'Instrument Sans';margin-top:4px">Czytaj numer →</span>
+</div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="background:#fbf8f2;border-radius:24px;padding:22px 24px;display:flex;flex-direction:column;gap:14px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 10px"><span style="font:600 23px 'EB Garamond'">Nadchodzące</span><span onClick="{{ goTerm }}" style="cursor:pointer;font:500 13px 'Instrument Sans';white-space:nowrap;color:oklch(0.45 0.12 20)">Terminarz →</span></div>
+<sc-for list="{{ upcoming }}" as="e" hint-placeholder-count="3">
+<div onClick="{{ e.open }}" style="cursor:pointer;display:flex;gap:14px;align-items:center">
+<div style="width:52px;flex:none;text-align:center;background:{{ e.chipBg }};color:{{ e.chipColor }};border-radius:12px;padding:6px 0"><div style="font:600 10px 'Instrument Sans';letter-spacing:.1em">{{ e.dow }}</div><div style="font:500 24px/1 'EB Garamond'">{{ e.d }}</div></div>
+<div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font:500 17px/1.25 'EB Garamond'">{{ e.title }}</span><span style="font:13px 'Instrument Sans';color:rgba(42,36,32,.65)">{{ e.time }}</span></div>
+</div>
+</sc-for>
+</div>
+<div style="background:#2a2420;color:#f6f2ea;border-radius:24px;padding:20px 22px;display:flex;flex-direction:column;gap:12px">
+<span style="font:14px/1.4 'Instrument Sans'">{{ pushText }}</span>
+<span onClick="{{ togglePush }}" style="cursor:pointer;align-self:flex-start;font:600 13px 'Instrument Sans';background:#f6f2ea;color:#2a2420;border-radius:999px;padding:9px 16px">{{ pushBtn }}</span>
+</div>
+</div>
+</div>
+<sc-if value="{{ isPhone }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fbf8f2;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 10px"><span style="font:600 23px 'EB Garamond'">Kontakt z parafią</span><span onClick="{{ goKanc }}" style="cursor:pointer;font:500 13px 'Instrument Sans';white-space:nowrap;color:oklch(0.45 0.12 20)">Kancelaria →</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<a href="tel:511164621" style="background:oklch(0.45 0.12 20);color:#fbf8f2;border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;text-decoration:none"><span style="font:12px 'Instrument Sans'">Zadzwoń</span><span style="font:600 15px 'Instrument Sans'">511 164 621</span></a>
+<a href="mailto:plubiana@diecezja-pelplin.pl" style="background:#efe8db;color:#2a2420;border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;text-decoration:none"><span style="font:12px 'Instrument Sans'">Napisz</span><span style="font:600 15px 'Instrument Sans'">e-mail</span></a>
+</div>
+<span style="font:13px/1.45 'Instrument Sans';color:rgba(42,36,32,.7)">Tel. stacjonarny 58 687 43 01 · ul. Kościelna 6, Łubiana</span>
+</div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{ pOgl }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:{{ gSide }};gap:16px;align-items:start">
+<div style="background:#fbf8f2;border-radius:24px;padding:{{ cardPad }};display:flex;flex-direction:column;gap:14px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<span style="align-self:flex-start;font:500 12px 'Instrument Sans';background:#efe8db;border-radius:999px;padding:5px 12px;line-height:1.4">{{ annSel.date }}</span>
+<h2 style="margin:0;font:600 26px/1.15 'EB Garamond';text-wrap:balance">{{ annSel.title }}</h2>
+<sc-if value="{{ annSel.full }}" hint-placeholder-val="{{ true }}">
+<ol style="margin:0;padding:0 0 0 22px;display:flex;flex-direction:column;gap:12px;font:18px/1.5 'EB Garamond';text-wrap:pretty">
+<sc-for list="{{ annAll }}" as="a" hint-placeholder-count="6"><li>{{ a }}</li></sc-for>
+</ol>
+<div style="margin-top:6px;background:#efe8db;border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;font:14px/1.5 'Instrument Sans'">
+<span style="font:600 17px 'EB Garamond'">Ofiary na rzecz parafii</span>
+<span>Bank Millennium · PLN 31 1160 2202 0000 0006 4220 4848</span>
+<span>EUR 22 1160 2202 0000 0007 2309 7420</span>
+<span style="color:rgba(42,36,32,.7)">Z dopiskiem „na cele kultu religijnego”. Bóg zapłać!</span>
+</div>
+</sc-if>
+<sc-if value="{{ annSel.empty }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font:15px/1.5 'Instrument Sans';color:rgba(42,36,32,.7)">To jest przykładowa pozycja archiwum. Podczas migracji przeniesiemy tu treść ogłoszeń z obecnej strony.</p></sc-if>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><span style="font:600 13px 'Instrument Sans';border:1px solid rgba(42,36,32,.3);border-radius:999px;padding:8px 14px">Udostępnij</span><span style="font:600 13px 'Instrument Sans';border:1px solid rgba(42,36,32,.3);border-radius:999px;padding:8px 14px">Drukuj</span></div>
+</div>
+<div style="background:#fbf8f2;border-radius:24px;padding:20px 22px;display:flex;flex-direction:column;gap:4px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<span style="font:600 20px 'EB Garamond';margin-bottom:6px">Archiwum ogłoszeń</span>
+<sc-for list="{{ annList }}" as="a" hint-placeholder-count="5">
+<div onClick="{{ a.open }}" style="cursor:pointer;padding:10px 12px;border-radius:14px;background:{{ a.bg }};display:flex;flex-direction:column;gap:2px"><span style="font:12px 'Instrument Sans';color:rgba(42,36,32,.6)">{{ a.date }}</span><span style="font:500 17px/1.3 'EB Garamond'">{{ a.title }}</span></div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ pInt }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px">
+<sc-for list="{{ days }}" as="d" hint-placeholder-count="7">
+<div onClick="{{ d.pick }}" style="cursor:pointer;text-align:center;border-radius:14px;padding:9px 0;background:{{ d.bg }};color:{{ d.color }}"><div style="font:600 11px 'Instrument Sans';letter-spacing:.06em">{{ d.short }}</div><div style="font:500 22px/1.1 'EB Garamond'">{{ d.num }}</div></div>
+</sc-for>
+</div>
+<div style="display:grid;grid-template-columns:{{ gSide }};gap:16px;align-items:start">
+<div style="background:#fbf8f2;border-radius:24px;padding:{{ cardPad }};display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<span style="font:600 22px/1.2 'EB Garamond';margin-bottom:4px">{{ daySel.label }}</span>
+<sc-if value="{{ daySel.feast }}" hint-placeholder-val="{{ false }}"><span style="font:italic 17px 'EB Garamond';color:oklch(0.45 0.12 20);margin-bottom:8px">{{ daySel.feast }}</span></sc-if>
+<sc-for list="{{ daySel.items }}" as="m" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:64px 1fr;gap:12px;padding:14px 0;border-top:1px solid rgba(42,36,32,.1)">
+<span style="font:500 22px/1.1 'EB Garamond';color:oklch(0.45 0.12 20)">{{ m.t }}</span>
+<div style="display:flex;flex-direction:column;gap:6px">
+<sc-for list="{{ m.lines }}" as="l" hint-placeholder-count="1"><span style="font:17px/1.4 'EB Garamond';text-wrap:pretty">{{ l }}</span></sc-for>
+<sc-if value="{{ m.note }}" hint-placeholder-val="{{ false }}"><span style="align-self:flex-start;font:500 12px 'Instrument Sans';background:#efe8db;border-radius:999px;padding:4px 10px;white-space:nowrap">{{ m.note }}</span></sc-if>
+</div>
+</div>
+</sc-for>
+<span style="padding-top:12px;border-top:1px solid rgba(42,36,32,.1);font:13px 'Instrument Sans';color:rgba(42,36,32,.65)">Intencja Księdza Seniora: w pewnej intencji.</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="background:#2a2420;color:#f6f2ea;border-radius:24px;padding:20px 22px;display:flex;flex-direction:column;gap:8px;font:14px/1.5 'Instrument Sans'">
+<span style="font:600 19px 'EB Garamond'">Zauważyłeś błąd w intencji?</span>
+<span>Prosimy o pilny kontakt z parafią.</span>
+<a href="tel:511164621" style="color:#f6f2ea;font-weight:600">511 164 621</a>
+<a href="mailto:plubiana@diecezja-pelplin.pl" style="color:#f6f2ea;font-weight:600">plubiana@diecezja-pelplin.pl</a>
+</div>
+<div style="background:#fbf8f2;border-radius:24px;padding:20px 22px;display:flex;flex-direction:column;gap:8px;font:14px/1.5 'Instrument Sans';box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<span style="font:600 19px 'EB Garamond'">Ofiara za Mszę świętą</span>
+<span>Osobiście w kościele lub na plebanii, w opisanej kopercie w skrzynce na plebanii albo przelewem:</span>
+<span style="font-weight:600">PLN 31 1160 2202 0000 0006 4220 4848</span>
+<span style="color:rgba(42,36,32,.7)">z dopiskiem „ofiara za Mszę św. w dniu…”</span>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ pNab }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:{{ g2 }};gap:16px;align-items:start">
+<div style="background:oklch(0.45 0.12 20);color:#fbf8f2;border-radius:24px;padding:{{ cardPad }};display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font:600 12px 'Instrument Sans';letter-spacing:.1em;text-transform:uppercase;opacity:.85">Niedziele</span><span style="font:500 30px/1.1 'EB Garamond'">8:30 · 11:00 · 15:00</span></div>
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font:600 12px 'Instrument Sans';letter-spacing:.1em;text-transform:uppercase;opacity:.85">Dni powszednie</span><span style="font:500 30px/1.1 'EB Garamond'">18:00</span></div>
+</div>
+<sc-for list="{{ nabSections }}" as="s" hint-placeholder-count="4">
+<div style="background:#fbf8f2;border-radius:24px;padding:{{ cardPad }};display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<span style="font:600 21px 'EB Garamond'">{{ s.title }}</span>
+<sc-for list="{{ s.items }}" as="i" hint-placeholder-count="2">
+<div style="display:flex;flex-direction:column;gap:2px;padding-top:10px;border-top:1px solid rgba(42,36,32,.1)"><span style="font:600 14px 'Instrument Sans'">{{ i.k }}</span><span style="font:14px/1.5 'Instrument Sans';color:rgba(42,36,32,.75);text-wrap:pretty">{{ i.v }}</span></div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ pTerm }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:{{ gSideL }};gap:16px;align-items:start">
+<div style="background:#fbf8f2;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font:600 22px/1.2 'EB Garamond';white-space:nowrap">Listopad 2026</span><div style="display:flex;gap:6px"><span style="width:32px;height:32px;border-radius:50%;background:#efe8db;display:flex;align-items:center;justify-content:center">‹</span><span style="width:32px;height:32px;border-radius:50%;background:#efe8db;display:flex;align-items:center;justify-content:center">›</span></div></div>
+<div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;text-align:center">
+<sc-for list="{{ weekHdr }}" as="w" hint-placeholder-count="7"><span style="font:600 11px 'Instrument Sans';color:rgba(42,36,32,.55);padding:4px 0">{{ w }}</span></sc-for>
+<sc-for list="{{ cal }}" as="c" hint-placeholder-count="35">
+<div onClick="{{ c.click }}" style="cursor:{{ c.cursor }};aspect-ratio:1;border-radius:12px;background:{{ c.bg }};color:{{ c.color }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font:500 16px 'EB Garamond'"><span>{{ c.n }}</span><span style="width:5px;height:5px;border-radius:50%;background:{{ c.dot }}"></span></div>
+</sc-for>
+</div>
+<div style="display:flex;gap:14px;font:12px 'Instrument Sans';color:rgba(42,36,32,.65)"><span style="display:flex;align-items:center;gap:6px"><span style="width:6px;height:6px;border-radius:50%;background:oklch(0.45 0.12 20)"></span>wydarzenie</span><span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:4px;background:#2a2420"></span>dziś</span></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ events }}" as="e" hint-placeholder-count="5">
+<div onClick="{{ e.open }}" style="cursor:pointer;background:#fbf8f2;border-radius:20px;padding:16px 18px;display:flex;gap:16px;align-items:center;opacity:{{ e.op }};box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<div style="width:56px;flex:none;text-align:center;background:{{ e.chipBg }};color:{{ e.chipColor }};border-radius:14px;padding:7px 0"><div style="font:600 10px 'Instrument Sans';letter-spacing:.1em">{{ e.dow }}</div><div style="font:500 26px/1 'EB Garamond'">{{ e.d }}</div></div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font:500 19px/1.25 'EB Garamond';text-wrap:pretty">{{ e.title }}</span><span style="font:13px 'Instrument Sans';color:rgba(42,36,32,.65)">{{ e.time }} · {{ e.place }}</span></div>
+<span style="font:16px 'Instrument Sans';color:oklch(0.45 0.12 20)">→</span>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ pEvent }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:{{ gSide }};gap:16px;align-items:start">
+<div style="background:#fbf8f2;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<div style="height:{{ heroH }};background:repeating-linear-gradient(135deg,#e6dece 0 12px,#ece5d7 12px 24px);display:flex;align-items:center;justify-content:center;font:500 12px ui-monospace,monospace;color:rgba(42,36,32,.55)">zdjęcie wydarzenia (opcjonalne)</div>
+<div style="padding:{{ cardPad }};display:flex;flex-direction:column;gap:14px">
+<span style="align-self:flex-start;font:500 12px 'Instrument Sans';background:#efe8db;border-radius:999px;padding:5px 12px;line-height:1.4">{{ ev.date }}</span>
+<h2 style="margin:0;font:500 {{ h1 }}/1.05 'EB Garamond';text-wrap:balance">{{ ev.title }}</h2>
+<sc-for list="{{ ev.desc }}" as="p" hint-placeholder-count="2"><p style="margin:0;font:18px/1.5 'EB Garamond';text-wrap:pretty">{{ p }}</p></sc-for>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="background:#fbf8f2;border-radius:24px;padding:20px 22px;display:grid;grid-template-columns:80px 1fr;gap:10px 12px;font:14px 'Instrument Sans';box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<span style="color:rgba(42,36,32,.65)">Kiedy</span><span>{{ ev.date }}</span>
+<span style="color:rgba(42,36,32,.65)">Godzina</span><span>{{ ev.time }}</span>
+<span style="color:rgba(42,36,32,.65)">Miejsce</span><span>{{ ev.place }}</span>
+</div>
+<span onClick="{{ toggleRemind }}" style="cursor:pointer;text-align:center;font:600 14px 'Instrument Sans';background:{{ remindBg }};color:#fbf8f2;border-radius:999px;padding:13px 18px">{{ remindLabel }}</span>
+<span style="text-align:center;font:600 14px 'Instrument Sans';border:1px solid rgba(42,36,32,.3);border-radius:999px;padding:12px 18px">Dodaj do kalendarza</span>
+<span style="text-align:center;font:600 14px 'Instrument Sans';border:1px solid rgba(42,36,32,.3);border-radius:999px;padding:12px 18px">Udostępnij</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ pHub }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:{{ g3 }};gap:12px">
+<sc-for list="{{ hub }}" as="h" hint-placeholder-count="6">
+<div onClick="{{ h.open }}" style="cursor:pointer;background:#fbf8f2;border-radius:22px;padding:20px 22px;display:flex;flex-direction:column;gap:6px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font:600 21px/1.2 'EB Garamond'">{{ h.label }}</span><span style="color:oklch(0.45 0.12 20)">→</span></div>
+<span style="font:14px/1.45 'Instrument Sans';color:rgba(42,36,32,.7)">{{ h.sub }}</span>
+</div>
+</sc-for>
+</div>
+<div style="background:#2a2420;color:#f6f2ea;border-radius:24px;padding:20px 22px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px">
+<span style="font:14px/1.4 'Instrument Sans'">Dodaj stronę parafii do ekranu głównego telefonu. Będzie działać jak aplikacja.</span>
+<span onClick="{{ toggleInstall }}" style="cursor:pointer;font:600 13px 'Instrument Sans';background:#f6f2ea;color:#2a2420;border-radius:999px;padding:9px 16px">Zainstaluj</span>
+</div>
+</sc-if>
+
+<sc-if value="{{ pKanc }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:{{ g2 }};gap:16px;align-items:start">
+<div style="background:#fbf8f2;border-radius:24px;padding:{{ cardPad }};display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<span style="font:600 21px 'EB Garamond'">Godziny kancelarii</span>
+<p style="margin:0;font:18px/1.5 'EB Garamond';text-wrap:pretty">W dni powszednie po każdej Mszy świętej. W nagłych sprawach (pogrzeb, namaszczenie chorych, wiatyk) o każdej porze. W niedzielę tylko w szczególnie pilnych sprawach.</p>
+<span style="font:14px 'Instrument Sans';color:rgba(42,36,32,.7)">Proboszcz: ks. kan. dr Wojciech Węckowski</span>
+</div>
+<div style="background:#fbf8f2;border-radius:24px;padding:{{ cardPad }};display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<span style="font:600 21px 'EB Garamond'">Kontakt</span>
+<div style="display:flex;flex-direction:column;gap:8px">
+<a href="tel:586874301" style="display:flex;justify-content:space-between;background:#efe8db;border-radius:14px;padding:12px 14px;font:600 15px 'Instrument Sans';color:#2a2420;text-decoration:none"><span>Telefon stacjonarny</span><span>58 687 43 01</span></a>
+<a href="tel:511164621" style="display:flex;justify-content:space-between;background:#efe8db;border-radius:14px;padding:12px 14px;font:600 15px 'Instrument Sans';color:#2a2420;text-decoration:none"><span>Telefon komórkowy</span><span>511 164 621</span></a>
+<a href="mailto:plubiana@diecezja-pelplin.pl" style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#efe8db;border-radius:14px;padding:12px 14px;font:600 15px 'Instrument Sans';color:#2a2420;text-decoration:none"><span>E-mail</span><span>plubiana@diecezja-pelplin.pl</span></a>
+</div>
+</div>
+<div style="background:#fbf8f2;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<div style="height:180px;background:repeating-linear-gradient(135deg,#e6dece 0 12px,#ece5d7 12px 24px);display:flex;align-items:center;justify-content:center;font:500 12px ui-monospace,monospace;color:rgba(42,36,32,.55)">mapa dojazdu</div>
+<div style="padding:18px 22px;display:flex;flex-direction:column;gap:4px"><span style="font:600 19px 'EB Garamond'">ul. Kościelna 6, 83-407 Łubiana</span><span style="font:500 13px 'Instrument Sans';color:oklch(0.45 0.12 20)">Wyznacz trasę →</span></div>
+</div>
+<div style="background:#fbf8f2;border-radius:24px;padding:{{ cardPad }};display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<span style="font:600 21px 'EB Garamond'">Konto parafii</span>
+<span style="font:14px 'Instrument Sans';color:rgba(42,36,32,.7)">Parafia Rzymskokatolicka p.w. Świętego Maksymiliana Marii Kolbego · Bank Millennium</span>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:#efe8db;border-radius:14px;padding:12px 14px"><span style="font:600 14px 'Instrument Sans'">PLN 31 1160 2202 0000 0006 4220 4848</span><span onClick="{{ copyPln }}" style="cursor:pointer;font:600 12px 'Instrument Sans';color:oklch(0.45 0.12 20)">{{ copyLabel }}</span></div>
+<div style="background:#efe8db;border-radius:14px;padding:12px 14px;font:600 14px 'Instrument Sans'">EUR 22 1160 2202 0000 0007 2309 7420</div>
+<span style="font:14px/1.5 'Instrument Sans';color:rgba(42,36,32,.75)">Parafia umożliwia też wpłaty darowizn online.</span>
+<a href="https://pay.paymove.io/b68f" target="_blank" rel="noopener" style="align-self:flex-start;font:600 14px 'Instrument Sans';background:oklch(0.45 0.12 20);color:#fbf8f2;border-radius:999px;padding:10px 18px;text-decoration:none">Wpłać darowiznę online →</a>
+</div>
+</div>
+<div style="background:#fbf8f2;border-radius:24px;padding:18px 22px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<div onClick="{{ toggleRodo }}" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center"><span style="font:600 19px 'EB Garamond'">Klauzula informacyjna (RODO)</span><span style="font:600 18px 'Instrument Sans';color:oklch(0.45 0.12 20)">{{ rodoSign }}</span></div>
+<sc-if value="{{ rodoOpen }}" hint-placeholder-val="{{ false }}">
+<ol style="margin:0;padding:0 0 0 20px;display:flex;flex-direction:column;gap:8px;font:14px/1.55 'Instrument Sans';color:rgba(42,36,32,.8)">
+<sc-for list="{{ rodo }}" as="r" hint-placeholder-count="3"><li>{{ r }}</li></sc-for>
+</ol>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ pDusz }}" hint-placeholder-val="{{ false }}">
+<div style="background:oklch(0.45 0.12 20);color:#fbf8f2;border-radius:24px;padding:{{ cardPad }};display:flex;flex-direction:column;gap:8px">
+<span style="font:600 12px 'Instrument Sans';letter-spacing:.1em;text-transform:uppercase;opacity:.85">Duszpasterstwo osób z niepełnosprawnościami</span>
+<span style="font:500 28px/1.15 'EB Garamond'">Grupa integracyjna „Otwarte drzwi”</span>
+<span style="font:15px/1.5 'Instrument Sans'">Msza święta w każdą II niedzielę miesiąca o 13:45. Najbliższa: niedziela, 8 listopada.</span>
+</div>
+<span style="font:600 23px 'EB Garamond';padding:6px 6px 0">Grupy parafialne</span>
+<div style="display:grid;grid-template-columns:{{ g3 }};gap:12px">
+<sc-for list="{{ groups }}" as="g" hint-placeholder-count="6">
+<div style="background:#fbf8f2;border-radius:22px;padding:20px 22px;display:flex;flex-direction:column;gap:6px;box-shadow:0 1px 2px rgba(42,36,32,.06)"><span style="font:600 20px/1.2 'EB Garamond'">{{ g }}</span><span style="font:13px 'Instrument Sans';color:rgba(42,36,32,.55)">Opis, termin spotkań i opiekun: do uzupełnienia</span></div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ pHist }}" hint-placeholder-val="{{ false }}">
+<div style="height:{{ heroH }};border-radius:24px;background:repeating-linear-gradient(135deg,#e6dece 0 12px,#ece5d7 12px 24px);display:flex;align-items:center;justify-content:center;font:500 12px ui-monospace,monospace;color:rgba(42,36,32,.55)">zdjęcie kościoła w Łubianie</div>
+<div style="display:grid;grid-template-columns:{{ gSide }};gap:16px;align-items:start">
+<div style="background:#fbf8f2;border-radius:24px;padding:{{ cardPad }};display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<span style="font:600 22px 'EB Garamond';margin-bottom:8px">Kalendarium</span>
+<sc-for list="{{ timeline }}" as="t" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:96px 1fr;gap:14px;padding:12px 0;border-top:1px solid rgba(42,36,32,.1)"><span style="font:500 20px/1.2 'EB Garamond';color:oklch(0.45 0.12 20)">{{ t.y }}</span><span style="font:17px/1.45 'EB Garamond';text-wrap:pretty">{{ t.v }}</span></div>
+</sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="background:#fbf8f2;border-radius:24px;padding:20px 22px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<span style="font:600 20px 'EB Garamond'">Proboszczowie</span>
+<sc-for list="{{ priests }}" as="p" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;gap:2px;padding-top:8px;border-top:1px solid rgba(42,36,32,.1)"><span style="font:500 17px 'EB Garamond'">{{ p.n }}</span><span style="font:13px 'Instrument Sans';color:rgba(42,36,32,.65)">{{ p.y }}</span></div></sc-for>
+</div>
+<div style="background:#2a2420;color:#f6f2ea;border-radius:24px;padding:20px 22px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+<div style="display:flex;flex-direction:column"><span style="font:500 30px 'EB Garamond'">27 m</span><span style="font:12px 'Instrument Sans';opacity:.8">wysokość wieży</span></div>
+<div style="display:flex;flex-direction:column"><span style="font:500 30px 'EB Garamond'">39 × 18 m</span><span style="font:12px 'Instrument Sans';opacity:.8">wymiary kościoła</span></div>
+<div style="display:flex;flex-direction:column"><span style="font:500 30px 'EB Garamond'">300 + 100</span><span style="font:12px 'Instrument Sans';opacity:.8">miejsc w nawie i na chórze</span></div>
+<div style="display:flex;flex-direction:column"><span style="font:500 30px 'EB Garamond'">2 dzwony</span><span style="font:12px 'Instrument Sans';opacity:.8">Maryja i Jan Paweł II</span></div>
+</div>
+</div>
+</div>
+<div style="background:#fbf8f2;border-radius:24px;padding:{{ cardPad }};display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<span style="font:600 22px 'EB Garamond'">Opis kościoła</span>
+<sc-for list="{{ churchDesc }}" as="p" hint-placeholder-count="3"><p style="margin:0;max-width:760px;font:18px/1.55 'EB Garamond';text-wrap:pretty">{{ p }}</p></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ pCment }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:{{ g3 }};gap:12px">
+<div style="background:#2a2420;color:#f6f2ea;border-radius:22px;padding:20px 22px;display:flex;flex-direction:column;gap:6px"><span style="font:600 12px 'Instrument Sans';letter-spacing:.08em;text-transform:uppercase;opacity:.8">Kwiecień – wrzesień</span><span style="font:500 28px 'EB Garamond'">7:00 – 22:00</span></div>
+<div style="background:#2a2420;color:#f6f2ea;border-radius:22px;padding:20px 22px;display:flex;flex-direction:column;gap:6px"><span style="font:600 12px 'Instrument Sans';letter-spacing:.08em;text-transform:uppercase;opacity:.8">Październik – marzec</span><span style="font:500 28px 'EB Garamond'">8:00 – zmrok</span></div>
+<div style="background:#fbf8f2;border-radius:22px;padding:20px 22px;display:flex;flex-direction:column;gap:6px"><span style="font:600 12px 'Instrument Sans';letter-spacing:.08em;text-transform:uppercase;color:rgba(42,36,32,.65)">Opłata placowa i pokładna</span><span style="font:500 28px 'EB Garamond'">35 zł / rok</span></div>
+</div>
+<a href="https://www.mogily.pl/lubiana" target="_blank" rel="noopener" style="background:#fbf8f2;border-radius:22px;padding:18px 22px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;text-decoration:none;color:#2a2420;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font:600 20px 'EB Garamond'">Wyszukiwarka grobów</span><span style="font:14px/1.45 'Instrument Sans';color:rgba(42,36,32,.7)">Znajdź grób bliskiej osoby na cmentarzu w Łubianie</span></div>
+<span style="font:600 14px 'Instrument Sans';background:oklch(0.45 0.12 20);color:#fbf8f2;border-radius:999px;padding:10px 18px;white-space:nowrap">www.mogily.pl/lubiana →</span>
+</a>
+<span style="font:600 22px 'EB Garamond';padding:6px 6px 0">Regulamin cmentarza</span>
+<div style="display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ cemetery }}" as="s" hint-placeholder-count="5">
+<div style="background:#fbf8f2;border-radius:20px;padding:16px 20px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<div onClick="{{ s.toggle }}" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px"><span style="font:600 18px/1.3 'EB Garamond'">{{ s.title }}</span><span style="font:600 18px 'Instrument Sans';color:oklch(0.45 0.12 20)">{{ s.sign }}</span></div>
+<sc-if value="{{ s.open }}" hint-placeholder-val="{{ false }}">
+<ol style="margin:0;padding:0 0 0 20px;display:flex;flex-direction:column;gap:6px;font:14px/1.55 'Instrument Sans';color:rgba(42,36,32,.82)">
+<sc-for list="{{ s.items }}" as="i" hint-placeholder-count="3"><li>{{ i }}</li></sc-for>
+</ol>
+</sc-if>
+</div>
+</sc-for>
+</div>
+<span style="font:italic 15px 'EB Garamond';color:rgba(42,36,32,.7);padding:0 6px">Regulamin zatwierdzony 24 października 2018 r. przez Radę Ekonomiczną i Duszpasterską Parafii oraz Księdza Proboszcza.</span>
+</sc-if>
+
+<sc-if value="{{ pBiul }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:{{ gSide }};gap:16px;align-items:start">
+<div style="background:#fbf8f2;border-radius:24px;padding:{{ cardPad }};display:grid;grid-template-columns:{{ biulGrid }};gap:24px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<div style="width:100%;max-width:240px;aspect-ratio:1 / 1.414;border-radius:14px;background:repeating-linear-gradient(135deg,#e6dece 0 12px,#ece5d7 12px 24px);display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font:500 12px/1.4 ui-monospace,monospace;color:rgba(42,36,32,.55);box-shadow:0 6px 18px rgba(42,36,32,.12)">okładka numeru (1. strona PDF)</div>
+<div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+<span style="align-self:flex-start;font:500 12px 'Instrument Sans';background:#efe8db;border-radius:999px;padding:5px 12px">Najnowszy numer</span>
+<span style="font:italic 500 56px/0.95 'EB Garamond';color:oklch(0.45 0.12 20)">Lubiano</span>
+<span style="font:600 22px/1.2 'EB Garamond'">Nr 3 · listopad 2026</span>
+<div style="display:flex;flex-direction:column;gap:6px;padding-top:10px;border-top:1px solid rgba(42,36,32,.1)">
+<span style="font:600 12px 'Instrument Sans';letter-spacing:.1em;text-transform:uppercase;color:rgba(42,36,32,.65)">W numerze</span>
+<sc-for list="{{ biulContents }}" as="c" hint-placeholder-count="5"><span style="font:17px/1.35 'EB Garamond'">{{ c }}</span></sc-for>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+<span style="font:600 14px 'Instrument Sans';background:oklch(0.45 0.12 20);color:#fbf8f2;border-radius:999px;padding:11px 18px">Czytaj online</span>
+<span style="font:600 14px 'Instrument Sans';border:1px solid rgba(42,36,32,.3);border-radius:999px;padding:10px 18px">Pobierz PDF · 2,4 MB</span>
+</div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="background:#fbf8f2;border-radius:24px;padding:20px 22px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<span style="font:600 20px 'EB Garamond';margin-bottom:4px">Poprzednie numery</span>
+<sc-for list="{{ biulArchive }}" as="b" hint-placeholder-count="2"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;background:#efe8db;border-radius:14px;padding:12px 14px"><div style="display:flex;flex-direction:column;gap:1px"><span style="font:600 14px 'Instrument Sans'">{{ b.nr }}</span><span style="font:13px 'Instrument Sans';color:rgba(42,36,32,.65)">{{ b.m }}</span></div><span style="font:600 13px 'Instrument Sans';color:oklch(0.45 0.12 20)">PDF ↓</span></div></sc-for>
+</div>
+<div style="background:#2a2420;color:#f6f2ea;border-radius:24px;padding:20px 22px;display:flex;flex-direction:column;gap:12px">
+<span style="font:14px/1.4 'Instrument Sans'">{{ biulPushText }}</span>
+<span onClick="{{ toggleBiulPush }}" style="cursor:pointer;align-self:flex-start;font:600 13px 'Instrument Sans';background:#f6f2ea;color:#2a2420;border-radius:999px;padding:9px 16px">{{ biulPushBtn }}</span>
+</div>
+</div>
+</div>
+<div style="border:2px dashed oklch(0.45 0.12 20);border-radius:20px;padding:14px 18px;font:14px/1.5 'Instrument Sans';color:oklch(0.4 0.12 20)">Numery i spis treści są przykładowe. Każdy nowy numer redaktor wgrywa jako PDF w panelu, a okładka i karta na stronie głównej tworzą się same.</div>
+</sc-if>
+
+<sc-if value="{{ pOchr }}" hint-placeholder-val="{{ false }}">
+<div style="border:2px dashed oklch(0.45 0.12 20);border-radius:20px;padding:14px 18px;font:14px/1.5 'Instrument Sans';color:oklch(0.4 0.12 20)">Makieta podstrony. Treść, nazwiska i dokumenty prosimy przekazać z parafii albo pobierzemy je z obecnej strony podczas migracji.</div>
+<div style="display:grid;grid-template-columns:{{ g2 }};gap:16px;align-items:start">
+<div style="background:oklch(0.45 0.12 20);color:#fbf8f2;border-radius:24px;padding:{{ cardPad }};display:flex;flex-direction:column;gap:10px">
+<span style="font:500 26px/1.15 'EB Garamond'">Potrzebujesz pomocy lub chcesz coś zgłosić?</span>
+<a href="tel:116111" style="display:flex;justify-content:space-between;background:rgba(255,255,255,.14);border-radius:14px;padding:12px 14px;color:#fbf8f2;text-decoration:none;font:600 15px 'Instrument Sans'"><span>Telefon Zaufania dla Dzieci i Młodzieży</span><span>116 111</span></a>
+<a href="tel:112" style="display:flex;justify-content:space-between;background:rgba(255,255,255,.14);border-radius:14px;padding:12px 14px;color:#fbf8f2;text-decoration:none;font:600 15px 'Instrument Sans'"><span>Numer alarmowy</span><span>112</span></a>
+<div style="display:flex;justify-content:space-between;background:rgba(255,255,255,.14);border-radius:14px;padding:12px 14px;font:600 15px 'Instrument Sans'"><span>Osoba odpowiedzialna w parafii</span><span>do uzupełnienia</span></div>
+</div>
+<div style="background:#fbf8f2;border-radius:24px;padding:{{ cardPad }};display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 2px rgba(42,36,32,.06)">
+<span style="font:600 21px 'EB Garamond'">Dokumenty</span>
+<sc-for list="{{ ochrDocs }}" as="d" hint-placeholder-count="3"><div style="display:flex;justify-content:space-between;gap:10px;background:#efe8db;border-radius:14px;padding:12px 14px;font:600 14px 'Instrument Sans'"><span>{{ d }}</span><span style="color:oklch(0.45 0.12 20)">PDF ↓</span></div></sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top:24px;border-top:1px solid rgba(42,36,32,.15);padding:24px 6px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;font:13px/1.6 'Instrument Sans';color:rgba(42,36,32,.75)">
+<div style="display:flex;flex-direction:column"><span style="font:600 17px 'EB Garamond';color:#2a2420">Parafia św. Maksymiliana Marii Kolbego</span><span>ul. Kościelna 6, 83-407 Łubiana</span><span>Diecezja Pelplińska</span></div>
+<div style="display:flex;flex-direction:column"><span>tel. 58 687 43 01 · 511 164 621</span><span>plubiana@diecezja-pelplin.pl</span><span>Bank Millennium 31 1160 2202 0000 0006 4220 4848</span></div>
+<div style="display:flex;flex-direction:column"><span onClick="{{ goBiul }}" style="cursor:pointer">Biuletyn „Lubiano”</span><span onClick="{{ goCment }}" style="cursor:pointer">Nasz Cmentarz</span><span onClick="{{ goOchr }}" style="cursor:pointer">Ochrona dzieci i młodzieży</span><span>Polityka prywatności</span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font:600 17px 'EB Garamond';color:#2a2420">Aplikacja parafii</span><span>Ogłoszenia, intencje i przypomnienia na ekranie telefonu.</span><span onClick="{{ toggleInstall }}" style="cursor:pointer;align-self:flex-start;background:#2a2420;color:#f6f2ea;border-radius:999px;padding:9px 16px;font:600 13px 'Instrument Sans'">Zainstaluj aplikację</span></div>
+</div>
+</sc-if>
+</div>
+</div>
+
+<sc-if value="{{ isPhone }}" hint-placeholder-val="{{ false }}">
+<div style="height:80px;flex:none;background:#fbf8f2;border-radius:24px 24px 0 0;display:grid;grid-template-columns:repeat(5,1fr);padding:10px 6px 0;font:500 11px 'Instrument Sans';text-align:center">
+<sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+<div onClick="{{ t.open }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;color:{{ t.color }}"><span style="width:18px;height:18px;border:1.5px solid currentColor;border-radius:{{ t.r }};background:{{ t.fill }}"></span>{{ t.label }}</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ installOpen }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ toggleInstall }}" style="position:absolute;inset:0;background:rgba(42,36,32,.45);display:flex;align-items:flex-end;justify-content:center;padding:16px">
+<div style="width:100%;max-width:420px;background:#fbf8f2;border-radius:24px;padding:22px;display:flex;flex-direction:column;gap:12px">
+<span style="font:600 22px 'EB Garamond'">Zainstaluj aplikację parafii</span>
+<span style="font:14px/1.5 'Instrument Sans'"><b>Android / Chrome / Edge:</b> stuknij „Zainstaluj” w okienku przeglądarki.</span>
+<span style="font:14px/1.5 'Instrument Sans'"><b>iPhone / Safari:</b> stuknij „Udostępnij”, a potem „Do ekranu początkowego”.</span>
+<span style="align-self:flex-start;font:600 13px 'Instrument Sans';background:#2a2420;color:#f6f2ea;border-radius:999px;padding:9px 16px">Rozumiem</span>
+</div>
+</div>
+</sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const ACC='oklch(0.45 0.12 20)', INK='#2a2420', CARD='#fbf8f2', BG2='#efe8db';
+const PAGES={
+ start:{name:'Start',path:'/'},
+ ogl:{name:'Ogłoszenia',path:'/ogloszenia',kicker:'Ogłoszenia parafialne',title:'Ogłoszenia'},
+ int:{name:'Intencje',path:'/intencje',kicker:'2–8 listopada 2026',title:'Intencje mszalne'},
+ nab:{name:'Msze i nabożeństwa',path:'/nabozenstwa',kicker:'Porządek liturgii',title:'Msze i nabożeństwa',parent:'wiecej'},
+ term:{name:'Terminarz',path:'/terminarz',kicker:'Wydarzenia w parafii',title:'Terminarz'},
+ event:{name:'Wydarzenie',path:'/terminarz/',kicker:'Terminarz',parent:'term'},
+ wiecej:{name:'Parafia (więcej)',path:'/parafia',kicker:'Parafia św. M. M. Kolbego',title:'Parafia'},
+ kanc:{name:'Kancelaria i kontakt',path:'/kancelaria',kicker:'Kancelaria parafialna',title:'Kancelaria i kontakt',parent:'wiecej'},
+ dusz:{name:'Duszpasterstwo i grupy',path:'/duszpasterstwo',kicker:'Wspólnoty',title:'Duszpasterstwo i grupy',parent:'wiecej'},
+ hist:{name:'Historia parafii',path:'/historia',kicker:'Od 1983 roku',title:'Historia parafii',parent:'wiecej'},
+ cment:{name:'Nasz Cmentarz',path:'/cmentarz',kicker:'Cmentarz parafialny',title:'Nasz Cmentarz',parent:'wiecej'},
+ biul:{name:'Biuletyn „Lubiano”',path:'/biuletyn',kicker:'Wydawnictwo parafii',title:'Biuletyn parafialny',parent:'wiecej'},
+ ochr:{name:'Ochrona dzieci i młodzieży',path:'/ochrona-dzieci',kicker:'Bezpieczna parafia',title:'Ochrona dzieci i młodzieży',parent:'wiecej'}
+};
+const ANN=['Msze Święte dzisiaj o 8.30 i 11.00. O 13.00 procesja na cmentarzu z kazaniem. Podczas kazania będzie zbierana kolekta na rzecz utrzymania cmentarza. 15 minut po zakończonych obrzędach na cmentarzu, w kościele parafialnym Msza Święta.','Jutro wspomnienie wszystkich naszych zmarłych. Msze Święte o godz. 8.30, 10.00, 17.00 i 18.00. Wystawienie Najświętszego Sakramentu o 16.30.','Zachęcam do przekazania nazwisk osób zmarłych na tzw. Wypominki, które umieszczamy w skarbonce pod chórem. Wypominki roczne, które zaczniemy odczytywać od I niedzieli Adwentu, proszę przekazywać do mnie osobiście.','W tym tygodniu wspominamy: w środę św. Karola Boromeusza. Tego dnia również w tzw. „Moście modlitewnym” nasza parafia będzie się modliła szczególnie za Wyższe Seminarium Duchowne w Pelplinie. Modlitwę tę połączymy z nowenną do Matki Bożej Nieustającej Pomocy.','W tym tygodniu przypadają dni eucharystyczne: I czwartek miesiąca, I piątek z możliwością przystąpienia do spowiedzi świętej od godz. 15.30. W I sobotę zapraszam na Mszę Świętą o godz. 8.30 z różańcem wynagradzającym za grzechy popełnione przeciw Niepokalanemu Poczęciu NMP. Po Mszy Świętej odwiedzę naszych chorych.','W przyszłą niedzielę spotkanie z rodzicami dzieci pierwszokomunijnych po Mszy Świętej o godz. 11.00.','W przyszłą niedzielę Msza Święta o godz. 13.45 z udziałem osób z niepełnosprawnościami i ich rodzin.','W przyszłą niedzielę kolekta inwestycyjna.','W przyszłą niedzielę przypada Dzień Modlitwy i Solidarności z Kościołem Prześladowanym. Z tej też okazji będzie możliwość złożenia ofiary do skarbonki na rzecz chrześcijan prześladowanych w Pakistanie.','Wszystkim solenizantom i jubilatom tego tygodnia życzę wielu łask Bożych.'];
+const ANN_PREVIEW=['Jutro wspomnienie wszystkich zmarłych. Msze o 8.30, 10.00, 17.00 i 18.00.','W środę „Most modlitewny” za Seminarium w Pelplinie i nowenna do MB Nieustającej Pomocy.','I piątek: spowiedź od 15.30. I sobota: Msza o 8.30 i odwiedziny chorych.','W przyszłą niedzielę o 13.45 Msza z udziałem osób z niepełnosprawnościami.'];
+const ARCH=[{date:'1.11.2026',title:'Uroczystość Wszystkich Świętych',full:true},{date:'25.10.2026',title:'XXX Niedziela Zwykła'},{date:'18.10.2026',title:'XXIX Niedziela Zwykła'},{date:'11.10.2026',title:'XXVIII Niedziela Zwykła'},{date:'4.10.2026',title:'XXVII Niedziela Zwykła'}];
+const DAYS=[
+{short:'PN',num:2,label:'Poniedziałek, 2 listopada',feast:'Wspomnienie Wszystkich Wiernych Zmarłych',items:[{t:'8:30',lines:['++ Janina, Józef Burandt, Teresa i Stanisław Męczykowscy i za zm. dziadków i krewnych.']},{t:'10:00',lines:['++ za zm. rodziców Leona i Bronisławę Matyszewskich oraz Irenę Kolczyk.']},{t:'16:30',lines:['Adoracja Najświętszego Sakramentu.']},{t:'17:00',lines:['++ za zm. Hildegardę Nakielską, siostrę Irenę, Mariana, dziadków z obojga stron.']},{t:'18:00',lines:['+ za duszę śp. Dominika Piekarskiego ze wsp. śp. Bronisława i Agnieszki.']}]},
+{short:'WT',num:3,label:'Wtorek, 3 listopada',items:[{t:'17:00',lines:['+ Anna Parzątka-Lipińska'],note:'Gregorianka 1/30'},{t:'17:30',lines:['++ w intencji zmarłych mieszkańców z ul. Ogrodowej i Źródlanej.']},{t:'18:00',lines:['++ za zm. rodziców z obojga stron, męża Waldemara i za dusze w czyśćcu cierpiące.']}]},
+{short:'ŚR',num:4,label:'Środa, 4 listopada',feast:'Wspomnienie św. Karola Boromeusza',items:[{t:'17:00',lines:['+ Anna Parzątka-Lipińska'],note:'Gregorianka 2/30'},{t:'17:30',lines:['+ Grzegorz Kaszuba – int. od Małgorzaty i Mariusza Bębenek z rodziną.']},{t:'18:00',lines:['Intencja zarezerwowana.']}]},
+{short:'CZ',num:5,label:'Czwartek, 5 listopada',feast:'I czwartek miesiąca',items:[{t:'17:00',lines:['+ Anna Parzątka-Lipińska'],note:'Gregorianka 3/30'},{t:'17:30',lines:['+ Janusz Groszkowski.']},{t:'18:00',lines:['++ Halina z ok. urodzin i Franciszek Kuper, w int. Gertrudy, Franciszka Kaszubowskich i Marii i Leona Kuper.']}]},
+{short:'PT',num:6,label:'Piątek, 6 listopada · dziś',feast:'I piątek miesiąca · spowiedź od 15:30',items:[{t:'17:00',lines:['+ Anna Parzątka-Lipińska'],note:'Gregorianka 4/30'},{t:'17:30',lines:['++ za duszę żony Władysławy i zm. rodziców z obojga stron, Bertę, Bernarda, Leokadię i Franciszka.']},{t:'18:00',lines:['++ za dusze zm. rodziców Bronisławę i Antoniego, rodzeństwo Elżbietę, Jana i Zygmunta.']}]},
+{short:'SO',num:7,label:'Sobota, 7 listopada',feast:'I sobota miesiąca',items:[{t:'8:30',lines:['W int. śp. zm. brata Kazimierza i Zdzisława.'],note:'Po Mszy odwiedziny chorych'},{t:'16:00',lines:['I: o rychłą beatyfikację Sługi Bożego Konstantyna Dominika.','II: + Anna Parzątka-Lipińska – greg. 5/30.']},{t:'18:00',lines:['++ śp. Krzysztof w 33 r. śm. ze wsp. Łucji i Józefa.']}]},
+{short:'ND',num:8,label:'Niedziela, 8 listopada',feast:'XXXII Niedziela Okresu Zwykłego',items:[{t:'8:30',lines:['++ za dusze zmarłych z rodzin Gliszczyńskich, Jankowskich i Drywa i dusze w czyśćcu cierpiące.']},{t:'11:00',lines:['++ za dusze chrzestnych i Jana Czarnowskiego i Andrzeja Lipskiego oraz za dusze w czyśćcu cierpiące.']},{t:'13:45',lines:['Z prośbą o potrzebne łaski i zdrowie dla Barbary oraz o życie wieczne dla śp. Elżbiety Mańskiej oraz dusze w czyśćcu cierpiące.'],note:'Msza z udziałem osób z niepełnosprawnościami'},{t:'15:00',lines:['I: ++ za zm. z rodzin Peplińskich: Władysławę, Franciszka, Kazimierza, Irenę oraz szwagrów Marka, Józefa i Mieczysława.','II: + Anna Parzątka-Lipińska – greg. 6/30.']}]}
+];
+const P='Kościół parafialny';
+const EV=[
+{id:'zaduszki',d:2,dow:'PN',date:'Poniedziałek, 2 listopada',time:'8:30, 10:00, 17:00, 18:00',place:P,title:'Wspomnienie Wszystkich Wiernych Zmarłych',desc:['Msze święte o 8:30, 10:00, 17:00 i 18:00.','Wystawienie Najświętszego Sakramentu o 16:30.']},
+{id:'most',d:4,dow:'ŚR',date:'Środa, 4 listopada',time:'po Mszy 18:00',place:P,title:'„Most modlitewny” za Seminarium w Pelplinie',desc:['W tym dniu nasza parafia modli się szczególnie za Wyższe Seminarium Duchowne w Pelplinie.','Modlitwę połączymy z nowenną do Matki Bożej Nieustającej Pomocy po wieczornej Mszy świętej.']},
+{id:'iczw',d:5,dow:'CZ',date:'Czwartek, 5 listopada',time:'po Mszy 18:00',place:P,title:'I czwartek miesiąca',desc:['Po wieczornej Mszy świętej modlitwa w intencji nowych powołań do kapłaństwa, życia zakonnego i na misje.']},
+{id:'ipt',d:6,dow:'PT',date:'Piątek, 6 listopada',time:'spowiedź od 15:30',place:P,title:'I piątek miesiąca: spowiedź',desc:['Spowiedź święta od 15:30.','Po wieczornej Mszy świętej akt zawierzenia Najświętszemu Sercu Pana Jezusa.']},
+{id:'isob',d:7,dow:'SO',date:'Sobota, 7 listopada',time:'8:30',place:P,title:'I sobota miesiąca i odwiedziny chorych',desc:['Msza święta o 8:30 z różańcem wynagradzającym za grzechy popełnione przeciw Niepokalanemu Poczęciu NMP.','Po Mszy świętej ksiądz proboszcz odwiedzi chorych.']},
+{id:'komunia',d:8,dow:'ND',date:'Niedziela, 8 listopada',time:'po Mszy 11:00',place:P,title:'Spotkanie z rodzicami dzieci pierwszokomunijnych',desc:['Spotkanie odbędzie się po Mszy świętej o godz. 11:00.']},
+{id:'otwarte',d:8,dow:'ND',date:'Niedziela, 8 listopada',time:'13:45',place:P,title:'Msza z udziałem osób z niepełnosprawnościami',desc:['Msza święta z udziałem osób z niepełnosprawnościami i ich rodzin.','Grupa integracyjna „Otwarte drzwi” spotyka się w każdą II niedzielę miesiąca.']},
+{id:'przesl',d:8,dow:'ND',date:'Niedziela, 8 listopada',time:'cały dzień',place:P,title:'Dzień Solidarności z Kościołem Prześladowanym',desc:['Przy wyjściu z kościoła będzie można złożyć ofiarę do skarbonki na rzecz chrześcijan prześladowanych w Pakistanie.','Tego dnia kolekta inwestycyjna.']},
+{id:'adwent',d:29,dow:'ND',date:'Niedziela, 29 listopada',time:'8:30, 11:00, 15:00',place:P,title:'I Niedziela Adwentu',desc:['Początek nowego roku liturgicznego.','Od tej niedzieli zaczynamy odczytywać wypominki roczne. Kartki prosimy przekazywać osobiście księdzu proboszczowi.']}
+];
+const TODAY=6;
+const NAB=[
+{title:'Nabożeństwa eucharystyczne',items:[{k:'Każdy poniedziałek',v:'Wystawienie Najświętszego Sakramentu pół godziny przed wieczorną Mszą Świętą.'},{k:'I czwartek miesiąca',v:'Po wieczornej Mszy w intencji nowych powołań do kapłaństwa, zakonu i na misje.'},{k:'I piątek miesiąca',v:'Po wieczornej Mszy akt zawierzenia Najświętszemu Sercu Pana Jezusa.'},{k:'I sobota miesiąca',v:'Msza o 8:30, następnie różaniec wynagradzający za grzechy przeciw Niepokalanemu Poczęciu NMP.'}]},
+{title:'Różaniec',items:[{k:'I sobota miesiąca',v:'Pół godziny przed wieczorną Mszą Świętą (17:30).'},{k:'Październik',v:'W dni powszednie w łączności z wieczorną Mszą Świętą.'},{k:'III piątek miesiąca',v:'Przed wieczorną Mszą w intencji uwolnienia z problemów, nałogów i lęków naszych parafian.'}]},
+{title:'Inne nabożeństwa',items:[{k:'Nowenna do MB Nieustającej Pomocy',v:'W każdą środę po wieczornej Mszy Świętej.'},{k:'Nabożeństwo fatimskie',v:'Od maja do października 13. dnia miesiąca, w łączności z wieczorną Mszą.'},{k:'Majowe i czerwcowe',v:'Przez cały maj i czerwiec w dni powszednie po wieczornej Mszy.'},{k:'Msza z udziałem osób z niepełnosprawnościami',v:'W każdą II niedzielę miesiąca o 13:45.'}]},
+{title:'Sakramenty',items:[{k:'Chrzest święty',v:'W każdą niedzielę na Mszy św. o 11:00.'},{k:'Małżeństwo',v:'Przez cały rok poza Adwentem i Wielkim Postem. Formalności najpóźniej 3 miesiące przed ślubem.'},{k:'Spowiedź święta',v:'Przed każdą Mszą Świętą oraz w każdy I piątek miesiąca.'}]}
+];
+const HUB=[['nab','Msze i nabożeństwa','Porządek Mszy, nabożeństwa, sakramenty'],['kanc','Kancelaria i kontakt','Godziny, telefony, adres, konto'],['dusz','Duszpasterstwo i grupy','„Otwarte drzwi”, Żywy Różaniec, Caritas…'],['hist','Historia parafii','Od kaplicy domowej do konsekracji kościoła'],['cment','Nasz Cmentarz','Godziny otwarcia, wyszukiwarka grobów, regulamin'],['biul','Biuletyn „Lubiano”','Numery biuletynu parafialnego w PDF'],['ochr','Ochrona dzieci i młodzieży','Standardy, kontakt, jak zgłosić']];
+const RODO=['Administratorem danych osobowych jest parafia pw. Świętego Maksymiliana Marii Kolbego, 83-407 Łubiana, ul. Kościelna 6, reprezentowana przez ks. proboszcza Wojciecha Węckowskiego.','Dane zbierane są dla realizacji zadań i celów Kościoła.','Podstawą zbierania danych jest prawo kanoniczne.','W diecezji pelplińskiej ustanowiony został Inspektor Ochrony Danych: notariuszkurii@diecezja-pelplin.pl.','Przysługuje Pani/Panu prawo dostępu do treści danych, ich sprostowania, ograniczenia przetwarzania lub usunięcia – z ograniczeniem w zakresie danych dotyczących udzielonych sakramentów bądź kanonicznego statusu osoby.','Szczegółowych informacji na temat przetwarzania danych udziela administrator.','W przypadku niewłaściwego przetwarzania danych przysługuje prawo wniesienia skargi do Kościelnego Inspektora Ochrony Danych, Skwer kard. Stefana Wyszyńskiego 6, 01-015 Warszawa, kiod@episkopat.pl.'];
+const GROUPS=['Żywy Różaniec','Ministranci i lektorzy','Dziecięcy Żywy Różaniec','Caritas','Grupa Nocnej Adoracji','Duchowa Adopcja Dziecka Poczętego'];
+const TIMELINE=[{y:'1968',v:'Ks. Kilian Felskowski otrzymuje zgodę na otwarcie domowej kaplicy w Łubianie, należącej wtedy do parafii Świętej Trójcy w Kościerzynie.'},{y:'1981',v:'W domu państwa Wandy i Kazimierza Błaszkowskich powstaje punkt katechetyczny.'},{y:'1.07.1983',v:'Bp Marian Przykucki kieruje do Łubiany ks. Bogusława Augustyniaka.'},{y:'26.10.1983',v:'Erygowanie Parafii pw. Św. Maksymiliana Marii Kolbego w Łubianie.'},{y:'8.12.1983',v:'Pierwsza Msza św. w dolnej części budowanego kościoła.'},{y:'5.06.1984',v:'Poświęcenie i wmurowanie kamienia węgłowego. Parafia liczy 1186 mieszkańców.'},{y:'7.10.1990',v:'Konsekracja ołtarza i murów świątyni.'},{y:'1991',v:'Konsekracja dzwonów „Maryja” (354 kg) i „Jan Paweł II” (268 kg).'},{y:'2008',v:'Nowa elewacja kościoła i plebanii. Proboszczem zostaje ks. Mieczysław Gajewski.'},{y:'1.03.2025',v:'Urząd proboszcza obejmuje ks. kan. dr Wojciech Węckowski.'}];
+const PRIESTS=[{n:'ks. kan. Bogusław Augustyniak',y:'proboszcz w latach 1983–2008'},{n:'ks. Mieczysław Gajewski',y:'proboszcz w latach 2008–2025'},{n:'ks. kan. dr Wojciech Węckowski',y:'proboszcz od 2025'}];
+const BIUL_C=['Słowo Księdza Proboszcza','Listopad: miesiąc modlitwy za zmarłych','Z życia parafii: Wszystkich Świętych i Zaduszki','Kalendarz liturgiczny na grudzień','Kącik dla dzieci'];
+const BIUL_A=[{nr:'Nr 2',m:'październik 2026'},{nr:'Nr 1',m:'wrzesień 2026'}];
+const CHURCH=['Kościół ma kształt hali jednonawowej z obszernym prezbiterium wkomponowanym w wieżę, wysoką na 27 metrów. W nawie jest 300 miejsc siedzących, a na chórze dodatkowo ponad 100.','Granitowy ołtarz, ambonkę oraz tabernakulum zdobi metaloplastyka z pracowni Bronisława Zapalnikowa z Sopotu. Obraz w głównym ołtarzu namalował Władysław Gacki, scenograf Teatru Pomorskiego z Bydgoszczy.','W kaplicy bocznej znajduje się drewniany ołtarz z obrazem bł. ks. Jerzego Popiełuszki, ufundowany przez pracowników Zakładów Porcelany Stołowej „Lubiana”. Obok kościoła, z kamieni polnych pozostałych z budowy, wymurowano grotę z figurą Matki Bożej.'];
+const CEM=[
+{title:'§1 Zarząd cmentarza',items:['Cmentarz jest własnością Parafii pw. św. Maksymiliana Marii Kolbego w Łubianie.','Zarząd nad cmentarzem sprawuje Proboszcz Parafii.','Prace grzebalne i porządkowe Proboszcz powierza grabarzowi.','Sprawy cmentarne załatwiane są w Kancelarii Parafialnej, czynnej w dni powszednie przez pół godziny po wieczornej Mszy świętej.']},
+{title:'§2 Godziny otwarcia i odpowiedzialność',items:['Od 1 kwietnia do 30 września: 7:00–22:00; w pozostałych miesiącach: od 8:00 do zmroku.','Zarządca nie odpowiada za szkody powstałe na skutek klęsk żywiołowych, warunków atmosferycznych, kradzieży i wandalizmu.','Indywidualne ubezpieczenie grobu spoczywa na dysponencie grobu.','Podczas liturgii pogrzebowej obowiązuje zakaz otwierania trumny.']},
+{title:'§3 Opłaty',items:['Opłaty pobiera się za: pokładne, placowe, zmianę dysponenta, ustawienie nagrobka (9% na rzecz Parafii i 1% na rzecz Kurii), prace kamieniarskie, wodę i wywóz śmieci.','Opłata placowa i pokładna wynosi 35 zł na rok.','Ofiarę za placowe i pokładne składa się na 20 lat. Złożenie ofiary nie daje prawa własności, a jedynie prawo dysponowania miejscem.','Potwierdzenia ofiar należy przechowywać bezterminowo. Złożone ofiary nie podlegają zwrotowi.']},
+{title:'§4 Na cmentarzu zabrania się',items:['zakłócania ciszy, porządku i powagi miejsca oraz zaśmiecania terenu','niszczenia zieleni, nagrobków i urządzeń cmentarnych','ustawiania ławek i płotów utrudniających ruch pieszych oraz zabudowy poza powierzchnią grobu','przebywania poza godzinami otwarcia oraz dzieci w wieku przedszkolnym bez opieki','działalności handlowej, reklamowej i marketingowej','wjazdu pojazdami bez zezwolenia oraz rowerami','wprowadzania zwierząt, palenia tytoniu i spożywania alkoholu']},
+{title:'§5 Prace kamieniarskie i budowlane',items:['Prace mogą wykonywać wyłącznie dysponenci grobów lub upoważnione przez nich firmy, za zgodą Zarządcy.','Prace wykonuje się w godzinach 8:00–16:00, z wyłączeniem dni wolnych i świąt kościelnych.','Każdy grób powinien być czytelnie oznakowany imieniem, nazwiskiem i datą zgonu.']},
+{title:'§6–§12 Dysponent grobu, ekshumacje, sprawy formalne',items:['Pełna treść paragrafów zostanie przeniesiona z obecnej strony bez zmian.']}
+];
+const OCHR=['Standardy ochrony małoletnich w parafii','Wersja skrócona dla dzieci','Wersja skrócona dla rodziców'];
+
+class Component extends DCLogic {
+  state = { page:'start', device:null, vw: typeof window!=='undefined'?window.innerWidth:1400, day:4, ann:0, ev:'ipt', push:false, install:false, installBanner:true, biulPush:false, remind:{}, rodo:false, copied:false, cem:{0:true} };
+  componentDidMount(){ this._r=()=>this.setState({vw:window.innerWidth}); window.addEventListener('resize',this._r); this._r(); setTimeout(this._r,300); }
+  componentWillUnmount(){ window.removeEventListener('resize',this._r); }
+  componentDidUpdate(){ const k=this.state.page+'|'+this.state.ev; if(this._lastKey!==k){ this._lastKey=k; if(this._sc) this._sc.scrollTop=0; } }
+  go(p){ this.setState({page:p}); }
+  renderVals(){
+    const s=this.state, narrow=s.vw<600;
+    const device = narrow ? 'phone' : (s.device || (s.vw<1000?'phone':'desktop'));
+    const D=device==='desktop', Ph=!D;
+    const pg=PAGES[s.page];
+    const ev=EV.find(e=>e.id===s.ev)||EV[0];
+    const go=p=>()=>this.go(p);
+    const openEv=id=>()=>this.setState({ev:id,page:'event'});
+    const chip=e=>e.d===TODAY?{chipBg:ACC,chipColor:CARD}:{chipBg:BG2,chipColor:INK};
+    const tabKey = pg.parent==='wiecej'||s.page==='wiecej'?'wiecej':(s.page==='event'?'term':s.page);
+    const deskKey = ['dusz','hist','cment','ochr','biul','wiecej'].includes(s.page)?'wiecej':(s.page==='event'?'term':s.page);
+    const evDays={}; EV.forEach(e=>{ if(!evDays[e.d]) evDays[e.d]=e.id; });
+    const cal=[]; for(let i=0;i<6;i++) cal.push({n:'',bg:'transparent',color:INK,dot:'transparent',cursor:'default',click:()=>{}});
+    for(let d=1;d<=30;d++){ const has=evDays[d], today=d===TODAY;
+      cal.push({n:d,bg:today?INK:(has?BG2:'transparent'),color:today?CARD:(d<TODAY?'rgba(42,36,32,.4)':INK),dot:has?(today?CARD:ACC):'transparent',cursor:has?'pointer':'default',click:has?openEv(has):()=>{}}); }
+    const annSel=ARCH[s.ann];
+    const title = s.page==='event'? '' : (pg.title||'');
+    const tabsDef=[['start','Start','5px'],['ogl','Ogłoszenia','5px'],['int','Intencje','50%'],['term','Terminarz','5px'],['wiecej','Więcej','50%']];
+    const deskDef=[['start','Start'],['ogl','Ogłoszenia'],['int','Intencje'],['nab','Nabożeństwa'],['term','Terminarz'],['kanc','Kancelaria'],['wiecej','Parafia']];
+    const backTo=pg.parent;
+    return {
+      shellPad: narrow?'0':'20px 20px 40px',
+      showToolbar: !narrow,
+      devices:[['phone','Telefon'],['desktop','Desktop']].map(([k,l])=>({label:l,pick:()=>this.setState({device:k}),bg:device===k?INK:'transparent',color:device===k?CARD:INK})),
+      screenName: s.page==='event'? 'Wydarzenie: '+ev.title : pg.name,
+      frameW: narrow?'100%':(D?'1280px':'390px'),
+      frameH: narrow?'100vh':(D?'max(680px, calc(100vh - 110px))':'844px'),
+      frameR: narrow?'0':(D?'12px':'44px'),
+      frameShadow: narrow?'none':(D?'0 0 0 1px rgba(0,0,0,.15),0 20px 50px rgba(0,0,0,.2)':'0 0 0 10px #1c1a18,0 20px 50px rgba(0,0,0,.25)'),
+      isDesktop:D, isPhone:Ph, showStatusBar:Ph&&!narrow,
+      urlPath: s.page==='event'? '/terminarz/'+ev.id : (pg.path==='/'?'':pg.path),
+      scrollRef: el=>{this._sc=el;},
+      phoneHeader: Ph && s.page!=='start',
+      deskBack: D && !!backTo && backTo!=='wiecej' ? true : (D && s.page==='event'),
+      backLabel: backTo ? (backTo==='wiecej'?(Ph?'Więcej':'Parafia'):PAGES[backTo].name) : false,
+      goBack: ()=>this.go(backTo||'start'),
+      kicker: s.page==='event'? ev.date : pg.kicker,
+      showTitle: !!title, title, lead: false,
+      h1: D?'46px':'34px', bigTime: D?(s.vw<1200?'72px':'104px'):'64px',
+      pagePad: D?'24px 40px 40px':'8px 16px 24px',
+      cardPad: D?'26px 28px':'20px',
+      heroH: D?'260px':'170px',
+      g2: D?'minmax(0,1fr) minmax(0,1fr)':'minmax(0,1fr)',
+      g3: D?'minmax(0,1.05fr) minmax(0,1.3fr) minmax(0,1fr)':'minmax(0,1fr)',
+      gSide: D?'minmax(0,1fr) 340px':'minmax(0,1fr)',
+      gSideL: D?'400px minmax(0,1fr)':'minmax(0,1fr)',
+      pStart:s.page==='start', pOgl:s.page==='ogl', pInt:s.page==='int', pNab:s.page==='nab', pTerm:s.page==='term', pEvent:s.page==='event', pHub:s.page==='wiecej', pKanc:s.page==='kanc', pDusz:s.page==='dusz', pHist:s.page==='hist', pCment:s.page==='cment', pOchr:s.page==='ochr', pBiul:s.page==='biul',
+      goBiul:go('biul'), goOchr:go('ochr'), goCment:go('cment'), goKanc:go('kanc'),
+      biulGrid: D?'240px minmax(0,1fr)':'minmax(0,1fr)', biulContents:BIUL_C, biulArchive:BIUL_A,
+      biulPushText: s.biulPush?'Powiadomimy Cię, gdy ukaże się nowy numer „Lubiano”.':'Chcesz wiedzieć, kiedy ukaże się nowy numer?',
+      biulPushBtn: s.biulPush?'Wyłącz powiadomienie':'Powiadom mnie',
+      toggleBiulPush: ()=>this.setState({biulPush:!s.biulPush}),
+      showInstallBanner: Ph && s.installBanner, dismissInstall: ()=>this.setState({installBanner:false}),
+      goStart:go('start'), goOgl:go('ogl'), goInt:()=>this.setState({page:'int',day:4}), goNab:go('nab'), goTerm:go('term'),
+      nextKicker: 'Dziś, piątek 6 listopada · najbliższa Msza',
+      annPreview: ANN_PREVIEW, annAll: ANN,
+      upcoming: EV.filter(e=>e.d>=TODAY).slice(0,4).map(e=>({...e,...chip(e),open:openEv(e.id)})),
+      pushText: s.push?'Powiadomienia włączone. Dostaniesz najwyżej jedno dziennie: nowe ogłoszenia i przypomnienia o wydarzeniach.':'Przypomnienia o wydarzeniach i nowych ogłoszeniach, najwyżej jedno dziennie.',
+      pushBtn: s.push?'Wyłącz powiadomienia':'Włącz powiadomienia',
+      togglePush: ()=>this.setState({push:!s.push}),
+      annSel:{...annSel,empty:!annSel.full},
+      annList: ARCH.map((a,i)=>({...a,bg:i===s.ann?BG2:'transparent',open:()=>this.setState({ann:i})})),
+      days: DAYS.map((d,i)=>({...d,pick:()=>this.setState({day:i}),bg:i===s.day?ACC:(d.num===TODAY?BG2:CARD),color:i===s.day?CARD:INK})),
+      daySel: {...DAYS[s.day],feast:DAYS[s.day].feast||false,items:DAYS[s.day].items.map(m=>({...m,note:m.note||false}))},
+      nabSections: NAB,
+      weekHdr:['Pn','Wt','Śr','Cz','Pt','So','Nd'], cal,
+      events: EV.map(e=>({...e,...chip(e),op:e.d<TODAY?0.55:1,open:openEv(e.id)})),
+      ev,
+      remindLabel: s.remind[ev.id]?'Przypomnienie ustawione ✓':'Przypomnij mi w dniu wydarzenia',
+      remindBg: s.remind[ev.id]?'#4a6b4f':ACC,
+      toggleRemind: ()=>this.setState({remind:{...s.remind,[ev.id]:!s.remind[ev.id]}}),
+      hub: HUB.map(([k,l,sub])=>({label:l,sub,open:go(k)})),
+      rodo:RODO, rodoOpen:s.rodo, rodoSign:s.rodo?'−':'+', toggleRodo:()=>this.setState({rodo:!s.rodo}),
+      copyLabel: s.copied?'Skopiowano':'Kopiuj',
+      copyPln: ()=>{ try{navigator.clipboard.writeText('31116022020000000642204848');}catch(e){} this.setState({copied:true}); setTimeout(()=>this.setState({copied:false}),1800); },
+      groups:GROUPS, timeline:TIMELINE, priests:PRIESTS, churchDesc:CHURCH,
+      cemetery: CEM.map((c,i)=>({...c,open:!!s.cem[i],sign:s.cem[i]?'−':'+',toggle:()=>this.setState({cem:{...s.cem,[i]:!s.cem[i]}})})),
+      ochrDocs:OCHR,
+      tabs: tabsDef.map(([k,l,r])=>({label:l,r,open:go(k),color:tabKey===k?ACC:'rgba(42,36,32,.6)',fill:tabKey===k?ACC:'transparent'})),
+      deskNav: deskDef.map(([k,l])=>({label:l,open:go(k),bg:deskKey===k?ACC:'transparent',color:deskKey===k?CARD:INK})),
+      installOpen:s.install, toggleInstall:()=>this.setState({install:!s.install})
+    };
+  }
+}
+</script>
+</body>
+</html>

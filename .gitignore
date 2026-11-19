@@ -1,0 +1,23 @@
+# Dane prywatne (np. odpowiedzi z ankiet z adresami e-mail) — NIGDY do publicznego repo
+docs/private/
+
+# Node / Astro
+node_modules/
+dist/
+.astro/
+*.log
+
+# Cloudflare / sekrety
+.wrangler/
+.dev.vars*
+.env
+.env.*
+!.env.example
+
+# System / edytor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/*
+!.vscode/extensions.json
+.claude/settings.local.json
