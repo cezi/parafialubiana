@@ -141,7 +141,7 @@ Szacunek pracy: ~23–28 dni roboczych łącznie z testami i szkoleniem; bufor n
 | E2-4 | Terminarz: lista + miesiąc, szczegóły, cykliczność, ICS, status „odwołane” | testy dat (DST, cykliczność „II niedziela miesiąca”) |
 | E2-5 | Parafia: kancelaria i kontakt (mapa statyczna bez śledzenia), Duszpasterze + proboszczowie, grupy, historia, cmentarz, biuletyn (okładka z PDF), ochrona dzieci, RODO/polityka prywatności | wszystkie strony z menu prototypu |
 | E2-6 | Nekrologi (zasady publikacji z parafią) | lista + szczegóły, opcjonalny push, archiwizacja |
-| E2-9 | Kronika parafii (wpisy + zdjęcia) | redaktor dodaje wpis ze zdjęciami; zdjęcia kompresowane |
+| E2-9 | Kronika parafii (wpisy + zdjęcia) | redaktor dodaje wpis ze zdjęciami; zdjęcia kompresowane (WebP 1600 px), metadane/GPS usuwane; obowiązkowe pole potwierdzenia „brak rozpoznawalnych dzieci / duża grupa / pisemne zgody rodziców” (bez niego CI nie publikuje); link „Zgłoś zdjęcie do usunięcia” |
 | E2-7 | Migracja treści z WP: 10 stron, bieżący tydzień ogłoszeń/intencji, PDF-y; galerii nie migrujemy (D-10) — eksport `wp-content/uploads` dla parafii przed wyłączeniem WP, spis: [migracja/galeria-wp.md](migracja/galeria-wp.md) | porównanie stron 1:1 zaakceptowane przez parafię |
 | E2-8 | SEO: meta, Open Graph, `sitemap.xml`, `robots.txt`, dane strukturalne `Church`/`Event`, kanoniczne URL-e | Lighthouse SEO ≥ 95 |
 
@@ -183,7 +183,7 @@ Szacunek pracy: ~23–28 dni roboczych łącznie z testami i szkoleniem; bufor n
 
 ### Faza 2 (po odbiorze, osobna wycena)
 
-Pełna galeria archiwalna (R2), przycisk „wyślij teraz”, kategorie powiadomień. Odrzucone 2026-11-19: e-mail/SMS (D-14), wersje sklepowe (D-12).
+Przycisk „wyślij teraz”, kategorie powiadomień. Odrzucone 2026-11-19: e-mail/SMS (D-14), wersje sklepowe (D-12), publikacja archiwalnej galerii (D-10).
 
 ### Harmonogram orientacyjny
 
@@ -223,6 +223,7 @@ Pełna galeria archiwalna (R2), przycisk „wyślij teraz”, kategorie powiadom
 | `@vite-pwa/astro` 2.x — świeża wersja (API zmienione, eksport nazwany) | opóźnienie 1 dzień | przypięte wersje; fallback: własny SW (D-03) |
 | Redaktor bez konta GitHub / bez MFA | brak publikacji | założenie konta w E0-3, szkolenie |
 | Brak materiałów od parafii | opóźnienie odbioru | lista w E0-7, strony z oznaczeniem „do uzupełnienia” nie blokują startu |
+| Publikacja wizerunku dziecka bez zgody rodziców (Kronika) | naruszenie standardów ochrony małoletnich, roszczenia | pole potwierdzenia zgód w CMS, szybkie usuwanie na zgłoszenie |
 | Rozrost zakresu (nekrologi i kronika w MVP) | budżet 14 500 zł | ustalić z parafią aneks lub kompensatę zakresu |
 | Repo publiczne — przypadkowy commit danych | RODO | `.gitignore`, skan sekretów, CSV poza repo |
 | Konto Cloudflare na wykonawcy (decyzja 2026-11-19) | uzależnienie parafii | przeniesienie/dodanie parafii jako właściciela przed odbiorem (E5-9) |

@@ -170,6 +170,8 @@ Opcje:
 **Rekomendacja: A + B** (najnowsze/najważniejsze albumy wskaże parafia), C jako osobna wycena.
 **Decyzja (2026-11-19): A — nie migrować w MVP.** Spis wpisów i ścieżek: [migracja/galeria-wp.md](migracja/galeria-wp.md).
 
+**Decyzja uzupełniająca (2026-11-19): zdjęć z archiwum nie publikujemy wcale** (wizerunki dzieci bez pisemnych zgód rodziców — Standardy ochrony małoletnich diecezji pelplińskiej, Standard 4 pkt 16 lit. i). Parafia otrzymuje archiwum oryginałów w ZIP (poza repozytorium). Szczegóły: [migracja/zdjecia-kompresja.md](migracja/zdjecia-kompresja.md).
+
 ---
 
 ### D-11. Zmiany z ankiety zlecającego (1 odpowiedź, ocena 5/5)

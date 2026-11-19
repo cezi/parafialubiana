@@ -15,7 +15,7 @@ Ostatnia aktualizacja: 2026-11-19 · Synchronizacja: `node scripts/backlog-sync.
 | D-07 | Wysyłka z poziomu Sveltia + panel raportów | decyzja, push | done | #7 |
 | D-08 | Reguły wysyłki push: 1/dzień, cisza 21–7, 9:00 | decyzja, push | done | #8 |
 | D-09 | Intencje i ogłoszenia: 1 plik na tydzień | decyzja, cms | done | #9 |
-| D-10 | Galeria: bez migracji w MVP | decyzja, migracja | done | #10 |
+| D-10 | Galeria: bez migracji i bez publikacji; archiwum ZIP dla parafii | decyzja, migracja | done | #10 |
 | D-11 | Nekrologi i kronika parafii w MVP | decyzja, cms | done | #11 |
 | D-12 | Tylko PWA (bez sklepów) | decyzja | done | #12 |
 | D-13 | Repo publiczne, CSV z ankiety poza repo | decyzja, infra | done | #13 |
@@ -97,6 +97,6 @@ Ostatnia aktualizacja: 2026-11-19 · Synchronizacja: `node scripts/backlog-sync.
 
 | ID | Zadanie | Etykiety | Status | Issue |
 |---|---|---|---|---|
-| F2-1 | Pełna galeria archiwalna (R2) | migracja | todo | #57 |
+| F2-1 | Archiwum ZIP oryginałów galerii dla parafii (bez publikacji) | migracja | w toku | #57 |
 | F2-2 | Przycisk „wyślij teraz” w panelu push | push | todo | #58 |
 | F2-3 | Kategorie powiadomień | push | todo | #59 |
