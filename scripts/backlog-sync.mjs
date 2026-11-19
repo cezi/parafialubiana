@@ -92,7 +92,7 @@ if (args.has('--setup')) {
   for (const [name, [color, desc]] of Object.entries(LABELS)) {
     run(`etykieta: ${name}`, ['label', 'create', name, '--color', color, '--description', desc, '--force', '-R', REPO]);
   }
-  const existing = DRY ? [] : JSON.parse(gh(['api', `repos/${REPO}/milestones?state=all&per_page=100`])).map((m) => m.title);
+  const existing = JSON.parse(gh(['api', `repos/${REPO}/milestones?state=all&per_page=100`])).map((m) => m.title);
   for (const t of MILESTONES) {
     if (existing.includes(t)) continue;
     run(`kamień milowy: ${t}`, ['api', `repos/${REPO}/milestones`, '-f', `title=${t}`]);
@@ -100,7 +100,7 @@ if (args.has('--setup')) {
 }
 
 // --- synchronizacja ---
-const remote = DRY ? [] : JSON.parse(gh(['issue', 'list', '-R', REPO, '--state', 'all', '--limit', '1000', '--json', 'number,state,title,labels']));
+const remote = JSON.parse(gh(['issue', 'list', '-R', REPO, '--state', 'all', '--limit', '1000', '--json', 'number,state,title,labels']));
 const byNumber = new Map(remote.map((i) => [i.number, i]));
 const byPrefix = new Map(remote.map((i) => [i.title.match(/^\[([^\]]+)\]/)?.[1], i]));
 let changed = false;
