@@ -97,6 +97,6 @@ Ostatnia aktualizacja: 2026-11-19 · Synchronizacja: `node scripts/backlog-sync.
 
 | ID | Zadanie | Etykiety | Status | Issue |
 |---|---|---|---|---|
-| F2-1 | Archiwum ZIP oryginałów galerii dla parafii (bez publikacji) | migracja | w toku | #57 |
+| F2-1 | Archiwum ZIP oryginałów galerii dla parafii (bez publikacji) | migracja | done | #57 |
 | F2-2 | Przycisk „wyślij teraz” w panelu push | push | todo | #58 |
 | F2-3 | Kategorie powiadomień | push | todo | #59 |
