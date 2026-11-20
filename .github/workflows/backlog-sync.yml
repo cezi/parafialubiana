@@ -1,0 +1,50 @@
+name: Synchronizacja backlogu z Issues
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - backlog/BACKLOG.md
+      - docs/PLAN_WDROZENIA.md
+      - docs/DECYZJE.md
+      - scripts/backlog-sync.mjs
+      - .github/workflows/backlog-sync.yml
+  schedule:
+    - cron: '30 4 * * *' # codziennie 4:30 UTC (5:30 zimą / 6:30 latem w Polsce)
+  workflow_dispatch:
+
+permissions:
+  contents: write # zapis numerów Issues i terminów z powrotem do repo
+  issues: write
+
+concurrency:
+  group: backlog-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Synchronizacja (backlog → Issues, terminy Milestones → plan)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BACKLOG_REPO: ${{ github.repository }}
+        run: node scripts/backlog-sync.mjs --fix-plan-dates
+
+      - name: Zapis zmian (numery Issues, terminy w planie)
+        run: |
+          if git diff --quiet; then
+            echo "Brak zmian do zapisania."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backlog/BACKLOG.md docs/PLAN_WDROZENIA.md
+          git commit -m "backlog: automatyczna synchronizacja z GitHub"
+          git push

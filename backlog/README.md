@@ -38,4 +38,14 @@ node scripts/backlog-sync.mjs --fix-plan-dates  # + przepisz terminy w planie we
 5. **Terminy etapów** zmieniasz w GitHub → Milestones (stamtąd czyta je codzienne przypomnienie). Skrypt przy każdym uruchomieniu porównuje je z linią „Terminy kamieni milowych” w [docs/PLAN_WDROZENIA.md](../docs/PLAN_WDROZENIA.md) i zgłasza rozjazd; `--fix-plan-dates` poprawia plan.
 6. Termin pojedynczego zadania: linia `Termin: RRRR-MM-DD (opis)` na początku treści Issue.
 
+### Automatycznie (GitHub Actions)
+
+Workflow [.github/workflows/backlog-sync.yml](../.github/workflows/backlog-sync.yml) uruchamia synchronizację z `--fix-plan-dates`:
+- po każdym pushu na `main` zmieniającym backlog, plan, decyzje lub skrypt,
+- codziennie o 4:30 UTC (przed porannym przypomnieniem),
+- ręcznie: zakładka Actions → „Synchronizacja backlogu z Issues” → Run workflow (albo `gh workflow run backlog-sync.yml`).
+
+Jeśli workflow dopisze numery Issues lub poprawi terminy, robi commit `backlog: automatyczna synchronizacja z GitHub` — przed kolejną edycją lokalną zrób `git pull`.
+Uwaga: GitHub wyłącza zaplanowane workflow po 60 dniach bez aktywności w repozytorium (wystarczy wtedy włączyć je ponownie w Actions).
+
 Commit z backlogiem: `backlog: <co się zmieniło>`.
