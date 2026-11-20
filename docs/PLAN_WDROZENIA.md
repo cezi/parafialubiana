@@ -196,7 +196,7 @@ Przycisk „wyślij teraz”, kategorie powiadomień. Odrzucone 2026-11-19: e-ma
 | 5 | Etap 4 (testy obciążeniowe) + Etap 5 |
 | 6 | bufor: poprawki po testach parafii, przełączenie domeny, szkolenie, odbiór |
 
-**Terminy kamieni milowych w GitHub** (ustalone 2026-11-20, start 19.11.2026): Etap 0 — 25.11 · Etap 1 — 2.12 · Etap 2 — 9.12 · Etap 3 — 16.12 · Etap 4 — 16.12 · Etap 5 — 30.12.2026 · Faza 2 — bez terminu (po odbiorze, osobna wycena).
+**Terminy kamieni milowych w GitHub** (ustalone 2026-11-20, start 19.11.2026): Etap 0 — 25.11.2026 · Etap 1 — 2.12.2026 · Etap 2 — 9.12.2026 · Etap 3 — 16.12.2026 · Etap 4 — 16.12.2026 · Etap 5 — 30.12.2026 · Faza 2 — bez terminu (po odbiorze, osobna wycena).
 Zadania z własną datą spoza terminu kamienia milowego: na początku treści Issue linia `Termin: RRRR-MM-DD (opis)` — z niej korzysta codzienne przypomnienie.
 
 **Ścieżka krytyczna:** dostępy (Cloudflare, domena, konto GitHub redaktora) i materiały od parafii (osoba odpowiedzialna za ochronę dzieci, dokumenty, opisy grup, zdjęcia, archiwalne numery „Lubiano”).

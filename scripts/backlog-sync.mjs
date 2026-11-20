@@ -146,3 +146,31 @@ if (changed && !DRY) {
   console.log('Zapisano numery Issues w backlog/BACKLOG.md');
 }
 console.log(`Pozycji w backlogu: ${items.length}`);
+
+// --- terminy: Milestones w GitHub (źródło prawdy) vs linia „Terminy kamieni milowych” w planie ---
+// Format w planie: „Etap 0 — 25.11.2026 · … · Faza 2 — bez terminu”.
+// --fix-plan-dates przepisuje daty w planie według GitHub.
+{
+  const planText = readFileSync(PLAN, 'utf8');
+  const planLine = planText.split('\n').find((l) => l.startsWith('**Terminy kamieni milowych'));
+  if (!planLine) {
+    console.warn('! Brak linii „**Terminy kamieni milowych…” w docs/PLAN_WDROZENIA.md — pomijam porównanie terminów');
+  } else {
+    const fmt = (iso) => (iso ? iso.slice(0, 10).split('-').reverse().map((x, i) => (i < 2 ? String(Number(x)) : x)).join('.') : 'bez terminu');
+    const ghDue = new Map(JSON.parse(gh(['api', `repos/${REPO}/milestones?state=all&per_page=100`])).map((m) => [m.title, fmt(m.due_on)]));
+    const re = /(Etap \d|Faza 2) — (\d{1,2}\.\d{1,2}\.\d{4}|bez terminu)/g;
+    const inPlan = new Map([...planLine.matchAll(re)].map((m) => [m[1], m[2]]));
+    const diffs = MILESTONES.filter((t) => ghDue.has(t) && inPlan.get(t) !== ghDue.get(t));
+    for (const t of MILESTONES) if (!inPlan.has(t)) console.warn(`! Termin ${t}: brak w planie`);
+    if (!diffs.length) console.log('Terminy: plan zgodny z Milestones w GitHub');
+    for (const t of diffs) console.log(`! Termin ${t}: plan ${inPlan.get(t) ?? '—'} ≠ GitHub ${ghDue.get(t)}`);
+    if (diffs.length && args.has('--fix-plan-dates')) {
+      const fixed = planLine.replace(re, (all, t, d) => (ghDue.has(t) ? `${t} — ${ghDue.get(t)}` : all));
+      if (DRY) console.log(`[dry] plan: ${fixed}`);
+      else {
+        writeFileSync(PLAN, planText.replace(planLine, fixed));
+        console.log('Poprawiono terminy w docs/PLAN_WDROZENIA.md według GitHub');
+      }
+    } else if (diffs.length) console.log('  → popraw plan ręcznie albo uruchom z --fix-plan-dates');
+  }
+}

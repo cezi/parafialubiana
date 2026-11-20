@@ -28,11 +28,14 @@ Szczegóły zadań (kryteria akceptacji) są w [docs/PLAN_WDROZENIA.md](../docs/
 node scripts/backlog-sync.mjs --dry-run   # podgląd
 node scripts/backlog-sync.mjs             # synchronizacja
 node scripts/backlog-sync.mjs --setup     # + etykiety i kamienie milowe (jednorazowo)
+node scripts/backlog-sync.mjs --fix-plan-dates  # + przepisz terminy w planie według Milestones
 ```
 
 1. Wiersze bez numeru Issue → `gh issue create` (tytuł `[ID] Zadanie`, treść z planu/rejestru decyzji) i wpisanie numeru do tabeli.
 2. Istniejące → zgodność statusu (zamknięcie/otwarcie, etykieta `blokada`).
 3. Kierunek: **lokalnie → GitHub**. Komentarze i zmiany w GitHub nie nadpisują backlogu; Issues spoza backlogu są tylko raportowane.
 4. Nowe zadanie = nowy wiersz w tabeli (nowy ID), potem synchronizacja.
+5. **Terminy etapów** zmieniasz w GitHub → Milestones (stamtąd czyta je codzienne przypomnienie). Skrypt przy każdym uruchomieniu porównuje je z linią „Terminy kamieni milowych” w [docs/PLAN_WDROZENIA.md](../docs/PLAN_WDROZENIA.md) i zgłasza rozjazd; `--fix-plan-dates` poprawia plan.
+6. Termin pojedynczego zadania: linia `Termin: RRRR-MM-DD (opis)` na początku treści Issue.
 
 Commit z backlogiem: `backlog: <co się zmieniło>`.
