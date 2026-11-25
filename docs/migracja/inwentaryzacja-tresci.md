@@ -8,7 +8,7 @@ Pliki `intencje-mszalne.md`, `ogloszenia-parafialne.md` i `ochrona-dzieci-i-mlod
 
 | Strona WP (adres) | Ostatnia zmiana | Zawartość | Miejsce w nowej aplikacji | Sposób migracji |
 |---|---|---|---|---|
-| `/` = `/ogloszenia-parafialne/` | 2026-11-22 | godziny Mszy, ogłoszenia bieżącej niedzieli (12 punktów), plakat `A4_uzdr_lubiana.png`, konta bankowe | Start + kolekcja `ogloszenia` (1 plik/tydzień) + `ustawienia` (Msze, konta) | ostatni tydzień ręcznie do CMS przy starcie; godziny i konta → `ustawienia` |
+| `/` = `/ogloszenia-parafialne/` | 2026-11-22 | godziny Mszy, ogłoszenia bieżącej niedzieli (12 punktów), plakat `A4_uzdr_lubiana.png` (nie przenosimy), konta bankowe | Start + kolekcja `ogloszenia` (1 plik/tydzień) + `ustawienia` (Msze, konta) | ostatni tydzień ręcznie do CMS przy starcie; godziny i konta → `ustawienia` |
 | `/intencje-mszalne/` | 2026-11-15 | porządek Mszy + intencje bieżącego tygodnia | kolekcja `intencje` (1 plik/tydzień) | bieżący tydzień wprowadza redaktor przy starcie |
 | `/nabozenstwa/` | 2026-09-15 | nabożeństwa eucharystyczne, różańcowe, fatimskie, nowenna, majowe/czerwcowe, Msze z udziałem osób z niepełnosprawnościami, sakramenty | `ustawienia/nabozenstwa.yml` + strona „Msze i nabożeństwa” | automatycznie z eksportu → YAML (zgodne z prototypem) |
 | `/kancelaria-parafialna/` | 2025-03-22 | godziny kancelarii, kontakt, proboszcz, **klauzula informacyjna RODO** | `ustawienia/parafia.yml` (godziny, kontakt) + strona `polityka-prywatnosci` (klauzula + Web Push) | automatycznie; klauzulę uzupełnić o powiadomienia push (E5-5) |
@@ -19,7 +19,7 @@ Pliki `intencje-mszalne.md`, `ogloszenia-parafialne.md` i `ochrona-dzieci-i-mlod
 | `/ochrona-dzieci-i-mlodziezy/` | 2024-07-08 | preambuła wytycznych diecezji, **osoba pierwszego kontaktu + telefon**, grafika, link do diecezji | strona „Ochrona dzieci i młodzieży” + kafel na Start (ankieta) | automatycznie; **dodać przyjęte Standardy ochrony małoletnich (PDF)** — wymóg Standardu 1 pkt 1 |
 | `/regulamin-cmentarza-parafialnego/` | 2024-01-31 | regulamin §1–§9 (godziny otwarcia, opłaty 35 zł/rok, zasady) | strona „Nasz Cmentarz” (godziny, opłaty, mogily.pl) + podstrona regulaminu | automatycznie; godziny/opłaty → `ustawienia/cmentarz.yml` |
 
-Pliki osadzone w stronach: `2024/07/ochrona-dzieci-300x232.jpg` (grafika diecezjalna), `2026/06/A4_uzdr_lubiana.png` (plakat na stronie głównej — do wyjaśnienia, czy aktualny).
+Pliki osadzone w stronach: `2024/07/ochrona-dzieci-300x232.jpg` (grafika diecezjalna), `2026/06/A4_uzdr_lubiana.png` (plakat na stronie głównej — **nie przenosimy**, decyzja 2026-11-25).
 
 ## 2. Dane wspólne → `ustawienia` (jedno miejsce w CMS)
 
@@ -30,6 +30,7 @@ Pliki osadzone w stronach: `2024/07/ochrona-dzieci-300x232.jpg` (grafika diecezj
 | Telefony | 58 687 43 01 · 511 164 621 | ankieta: komórkowy na 1. ekranie |
 | E-mail | plubiana@diecezja-pelplin.pl | |
 | Proboszcz | ks. kan. dr Wojciech Węckowski (od 1.03.2025) | |
+| Wpłaty online | https://pay.paymove.io/b68f | przycisk „Wpłać darowiznę online” |
 | Konta | Bank Millennium PLN 31 1160 2202 0000 0006 4220 4848 · EUR 22 1160 2202 0000 0007 2309 7420, dopisek „na cele kultu religijnego” | |
 | Msze | niedziele 8:30, 11:00, 15:00 · dni powszednie 18:00 | zgodne z prototypem |
 | Kancelaria | dni powszednie po każdej Mszy; w nagłych sprawach o każdej porze; w niedzielę tylko pilne | regulamin cmentarza mówi „po wieczornej Mszy” — to samo |
@@ -59,7 +60,9 @@ Zasada: zachowujemy stare adresy tam, gdzie się da — mniej przekierowań, lin
 
 - Prototyp ma „Osoba odpowiedzialna: do uzupełnienia” — WP podaje osobę pierwszego kontaktu (do potwierdzenia).
 - Prototyp ma sekcję „Dokumenty” w Ochronie dzieci — na WP brak dokumentów; potrzebne Standardy (PDF).
-- Prototyp ma „Wpłać darowiznę online →” — na WP brak linku do płatności online; potrzebny adres lub usunięcie przycisku.
-- Prototyp: biuletyn „Lubiano” — na WP brak numerów; potrzebne PDF-y.
+- Prototyp ma „Wpłać darowiznę online →” — link: https://pay.paymove.io/b68f (podany 2026-11-25).
+- Prototyp: biuletyn „Lubiano” — numery jeszcze nie istnieją; **dział i karta na stronie głównej ukryte, dopóki redaktor nie wgra pierwszego numeru**.
 - Prototyp: „Kalendarium”, „Proboszczowie”, „Opis kościoła” — treść jest w historii WP; do podziału.
+- Logo patrona — parafia ma logo, które możemy używać (ikona aplikacji, nagłówek); zdjęcie św. Maksymiliana z prototypu nie jest potrzebne.
+- Redaktor strony: Ksiądz Proboszcz (plubiana@diecezja-pelplin.pl).
 - Grupy: prototyp przewiduje opis, termin, opiekuna — na WP tylko nazwy.

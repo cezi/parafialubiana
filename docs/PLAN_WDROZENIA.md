@@ -139,7 +139,7 @@ Szacunek pracy: ~23–28 dni roboczych łącznie z testami i szkoleniem; bufor n
 | E2-2 | Konfiguracja Sveltia: kolekcje, pola po polsku, podpowiedzi, wartości domyślne, podgląd, media (limit rozmiaru) | redaktor dodaje ogłoszenia tygodnia w < 10 min |
 | E2-3 | Widoki: Start, Ogłoszenia (+archiwum, druk), Intencje (tydzień, nawigacja tygodni), Msze i nabożeństwa | zgodność z prototypem |
 | E2-4 | Terminarz: lista + miesiąc, szczegóły, cykliczność, ICS, status „odwołane” | testy dat (DST, cykliczność „II niedziela miesiąca”) |
-| E2-5 | Parafia: kancelaria i kontakt (mapa statyczna bez śledzenia), Duszpasterze + proboszczowie, grupy, historia, cmentarz, biuletyn (okładka z PDF), ochrona dzieci, RODO/polityka prywatności | wszystkie strony z menu prototypu |
+| E2-5 | Parafia: kancelaria i kontakt (mapa statyczna bez śledzenia), Duszpasterze + proboszczowie, grupy, historia, cmentarz, biuletyn (okładka z PDF), ochrona dzieci (standardy w wersji pełnej i skróconej dla małoletnich — art. 22c ust. 7), RODO/polityka prywatności | wszystkie strony z menu prototypu; dział biuletynu i karta na Start ukryte, gdy brak numerów |
 | E2-6 | Nekrologi (zasady publikacji z parafią) | lista + szczegóły, opcjonalny push, archiwizacja |
 | E2-9 | Kronika parafii (wpisy + zdjęcia) | redaktor dodaje wpis ze zdjęciami; zdjęcia kompresowane (WebP 1600 px), metadane/GPS usuwane; obowiązkowe pole potwierdzenia „brak rozpoznawalnych dzieci / duża grupa / pisemne zgody rodziców” (bez niego CI nie publikuje); link „Zgłoś zdjęcie do usunięcia” |
 | E2-7 | Migracja treści z WP: 10 stron, bieżący tydzień ogłoszeń/intencji, PDF-y; galerii nie migrujemy (D-10) — eksport `wp-content/uploads` dla parafii przed wyłączeniem WP, spis: [migracja/galeria-wp.md](migracja/galeria-wp.md) | porównanie stron 1:1 zaakceptowane przez parafię |
@@ -178,7 +178,7 @@ Szacunek pracy: ~23–28 dni roboczych łącznie z testami i szkoleniem; bufor n
 | E5-5 | Polityka prywatności (push, Cloudflare, brak cookies śledzących), klauzula RODO z obecnej strony | akceptacja parafii |
 | E5-6 | Migracja domeny: dostęp do panelu webd.pl i rejestratora, spis rekordów DNS webd.pl (w tym MX/SPF!), przeniesienie NS do Cloudflare, `_redirects` starych URL-i, okres równoległy | stare linki → 301, poczta działa |
 | E5-7 | Monitoring: Cloudflare Analytics (bez cookies), alert e-mail przy błędach crona/kampanii; backup D1 | runbook „co zrobić, gdy…” |
-| E5-8 | Konto GitHub redaktora z MFA i dodanie do repo (rola *write*), szkolenie redaktora (1–1,5 h) + **instrukcja redaktora** z zrzutami ekranu (dodaj ogłoszenia, intencje, wydarzenie z przypomnieniem, biuletyn) | redaktor samodzielnie publikuje tydzień |
+| E5-8 | Redaktor: Ksiądz Proboszcz (plubiana@diecezja-pelplin.pl) — konto GitHub z MFA i dodanie do repo (rola *write*), szkolenie redaktora (1–1,5 h) + **instrukcja redaktora** z zrzutami ekranu (dodaj ogłoszenia, intencje, wydarzenie z przypomnieniem, biuletyn) | redaktor samodzielnie publikuje tydzień |
 | E5-9 | Odbiór: protokół, przekazanie dostępów, start gwarancji 12 mies. | protokół podpisany |
 
 ### Faza 2 (po odbiorze, osobna wycena)
