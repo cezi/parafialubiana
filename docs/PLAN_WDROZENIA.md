@@ -125,6 +125,7 @@ Szacunek pracy: ~23–28 dni roboczych łącznie z testami i szkoleniem; bufor n
 
 | ID | Zadanie | Kryterium akceptacji |
 |---|---|---|
+| E1-0 | Sprzątanie po Etapie 0: Workery `pl-push-spike`, `pl-push-mock`, `pl-cms-spike`, baza `pl-push-spike-db`, kolejka `pl-push-spike-q`, gałąź `spike/e0-5-cms`, konto `redaktor-test` w panelu. **Zostają:** `parafialubiana-cms`, GitHub App | na koncie Cloudflare tylko zasoby produkcyjne; kod spike'ów zostaje w `spikes/` |
 | E1-1 | Projekt Astro, TypeScript, ESLint/Prettier, Vitest, Playwright; CI na PR (lint, typy, testy, build) | zielony CI na PR |
 | E1-2 | Tokeny z prototypu (kolory, typografia, promienie, odstępy) jako CSS custom properties; **fonty self-hosted** (bez Google Fonts — RODO) | kontrast WCAG AA dla wszystkich par kolorów |
 | E1-3 | Layout: nagłówek, dolny pasek zakładek (mobile), górna nawigacja (desktop), stopka; **pasek z telefonem/e-mailem na 1. ekranie mobile** | uwaga z ankiety spełniona na 360×640 |

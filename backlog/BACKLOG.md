@@ -37,6 +37,7 @@ Ostatnia aktualizacja: 2026-11-19 · Synchronizacja: `node scripts/backlog-sync.
 
 | ID | Zadanie | Etykiety | Status | Issue |
 |---|---|---|---|---|
+| E1-0 | Sprzątanie zasobów testowych Etapu 0 | infra | todo | |
 | E1-1 | Projekt Astro, narzędzia, CI na PR | infra | todo | #22 |
 | E1-2 | Tokeny wizualne z prototypu, fonty self-hosted | frontend | todo | #23 |
 | E1-3 | Layout + kontakt na 1. ekranie mobile | frontend | todo | #24 |
