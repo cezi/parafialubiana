@@ -1,0 +1,7 @@
+{
+  "name": "parafialubiana-migration",
+  "private": true,
+  "type": "module",
+  "scripts": { "export-wp": "node wp-export.mjs" },
+  "devDependencies": { "turndown": "7.2.0", "turndown-plugin-gfm": "1.0.2" }
+}

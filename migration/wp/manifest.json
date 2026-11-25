@@ -1,0 +1,102 @@
+{
+ "exported": "2026-11-25T14:40:09.132Z",
+ "site": "https://parafialubiana.pl",
+ "pages": [
+  {
+   "slug": "duszpasterstwo",
+   "title": "DUSZPASTERSTWO",
+   "source": "https://parafialubiana.pl/duszpasterstwo/",
+   "modified": "2026-09-15T18:47:21",
+   "chars": 144,
+   "files": [],
+   "external": []
+  },
+  {
+   "slug": "grupy",
+   "title": "GRUPY",
+   "source": "https://parafialubiana.pl/grupy/",
+   "modified": "2024-02-21T15:41:28",
+   "chars": 175,
+   "files": [],
+   "external": []
+  },
+  {
+   "slug": "historia-parafii",
+   "title": "HISTORIA PARAFII",
+   "source": "https://parafialubiana.pl/historia-parafii/",
+   "modified": "2026-09-15T18:55:19",
+   "chars": 7069,
+   "files": [],
+   "external": []
+  },
+  {
+   "slug": "intencje-mszalne",
+   "title": "INTENCJE MSZALNE",
+   "source": "https://parafialubiana.pl/intencje-mszalne/",
+   "modified": "2026-11-22T16:25:07",
+   "chars": 3389,
+   "files": [],
+   "external": []
+  },
+  {
+   "slug": "kancelaria-parafialna",
+   "title": "KANCELARIA PARAFIALNA",
+   "source": "https://parafialubiana.pl/kancelaria-parafialna/",
+   "modified": "2025-03-22T20:18:16",
+   "chars": 1731,
+   "files": [],
+   "external": []
+  },
+  {
+   "slug": "nabozenstwa",
+   "title": "NABOŻEŃSTWA",
+   "source": "https://parafialubiana.pl/nabozenstwa/",
+   "modified": "2026-09-15T18:42:20",
+   "chars": 1748,
+   "files": [],
+   "external": []
+  },
+  {
+   "slug": "ochrona-dzieci-i-mlodziezy",
+   "title": "OCHRONA DZIECI I MŁODZIEŻY",
+   "source": "https://parafialubiana.pl/ochrona-dzieci-i-mlodziezy/",
+   "modified": "2024-07-08T09:00:03",
+   "chars": 1836,
+   "files": [
+    "https://parafialubiana.pl/wp-content/uploads/2024/07/ochrona-dzieci-300x232.jpg"
+   ],
+   "external": [
+    "https://diecezja-pelplin.pl/ochrona-dzieci-i-mlodziezy/"
+   ]
+  },
+  {
+   "slug": "ogloszenia-parafialne",
+   "title": "OGŁOSZENIA PARAFIALNE",
+   "source": "https://parafialubiana.pl/",
+   "modified": "2026-11-22T16:23:22",
+   "chars": 2132,
+   "files": [
+    "https://parafialubiana.pl/wp-content/uploads/2026/06/A4_uzdr_lubiana.png"
+   ],
+   "external": []
+  },
+  {
+   "slug": "regulamin-cmentarza-parafialnego",
+   "title": "REGULAMIN CMENTARZA PARAFIALNEGO",
+   "source": "https://parafialubiana.pl/regulamin-cmentarza-parafialnego/",
+   "modified": "2024-01-31T09:41:18",
+   "chars": 14550,
+   "files": [],
+   "external": []
+  },
+  {
+   "slug": "z-zycia-kosciola",
+   "title": "KONTAKT",
+   "source": "https://parafialubiana.pl/z-zycia-kosciola/",
+   "modified": "2026-09-18T08:17:03",
+   "chars": 388,
+   "files": [],
+   "external": []
+  }
+ ]
+}

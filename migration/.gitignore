@@ -1,0 +1,5 @@
+node_modules/
+# Treści z danymi osób (intencje, ogłoszenia, osoba kontaktowa) — tylko lokalnie, nie do publicznego repo
+wp/pages/intencje-mszalne.md
+wp/pages/ogloszenia-parafialne.md
+wp/pages/ochrona-dzieci-i-mlodziezy.md

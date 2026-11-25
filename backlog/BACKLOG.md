@@ -31,7 +31,7 @@ Ostatnia aktualizacja: 2026-11-19 · Synchronizacja: `node scripts/backlog-sync.
 | E0-4 | Spike Astro 7 + PWA | pwa | done | #18 |
 | E0-5 | Spike Sveltia + sveltia-cms-auth (GitHub App) | cms | todo | #19 |
 | E0-6 | Spike Web Push w Workerze + pomiar CPU na partię | push | done | #20 |
-| E0-7 | Inwentaryzacja treści WP + lista materiałów od parafii | migracja | todo | #21 |
+| E0-7 | Inwentaryzacja treści WP + lista materiałów od parafii | migracja | review | #21 |
 
 ## Etap 1 — Fundament i system wizualny
 
