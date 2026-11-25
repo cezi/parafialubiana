@@ -115,7 +115,7 @@ Szacunek pracy: ~23–28 dni roboczych łącznie z testami i szkoleniem; bufor n
 |---|---|---|
 | E0-1 | Decyzje D-01…D-14 zatwierdzone; zapis w `DECYZJE.md` | wszystkie pola „Decyzja” wypełnione |
 | E0-2 | Repo: `git init`, `.gitignore` (w tym `docs/private/`), README, licencja, ochrona `main`, etykiety i kamienie milowe w GitHub | pierwszy push, CSV z e-mailem poza repo |
-| E0-3 | Dostępy: konto Cloudflare (parafii lub wykonawcy — **ustalić właściciela**), panel webd.pl, rejestrator domeny, konto GitHub redaktora z MFA | lista dostępów w sejfie haseł |
+| E0-3 | Konto Cloudflare (na wykonawcy — decyzja 2026-11-25). Panel webd.pl i rejestrator → E5-6; konto GitHub redaktora → E5-8 | konto Cloudflare gotowe |
 | E0-4 | Spike Astro 7 + PWA — **wykonany 2026-11-19** (build OK, `buildSW`) | instalacja PWA lokalnie w E3 |
 | E0-5 | Spike Sveltia + `sveltia-cms-auth` (GitHub App) na `*.workers.dev` | logowanie, zapis testowego wpisu, commit w repo |
 | E0-6 | Spike push: szyfrowanie Web Push w Workerze + pomiar CPU na partię | raport: ms CPU / powiadomienie; decyzja Free/Paid (D-05) |
@@ -176,9 +176,9 @@ Szacunek pracy: ~23–28 dni roboczych łącznie z testami i szkoleniem; bufor n
 | E5-3 | Testy E2E (Playwright): nawigacja, CMS → build, offline, instalacja, subskrypcja push (Chromium) | CI zielone |
 | E5-4 | Testy ręczne na urządzeniach: Android (Chrome), iPhone (Safari, PWA), desktop (Chrome/Edge/Firefox/Safari) | lista kontrolna podpisana |
 | E5-5 | Polityka prywatności (push, Cloudflare, brak cookies śledzących), klauzula RODO z obecnej strony | akceptacja parafii |
-| E5-6 | Migracja domeny: spis rekordów DNS webd.pl (w tym MX/SPF!), przeniesienie NS do Cloudflare, `_redirects` starych URL-i, okres równoległy | stare linki → 301, poczta działa |
+| E5-6 | Migracja domeny: dostęp do panelu webd.pl i rejestratora, spis rekordów DNS webd.pl (w tym MX/SPF!), przeniesienie NS do Cloudflare, `_redirects` starych URL-i, okres równoległy | stare linki → 301, poczta działa |
 | E5-7 | Monitoring: Cloudflare Analytics (bez cookies), alert e-mail przy błędach crona/kampanii; backup D1 | runbook „co zrobić, gdy…” |
-| E5-8 | Szkolenie redaktora (1–1,5 h) + **instrukcja redaktora** z zrzutami ekranu (dodaj ogłoszenia, intencje, wydarzenie z przypomnieniem, biuletyn) | redaktor samodzielnie publikuje tydzień |
+| E5-8 | Konto GitHub redaktora z MFA i dodanie do repo (rola *write*), szkolenie redaktora (1–1,5 h) + **instrukcja redaktora** z zrzutami ekranu (dodaj ogłoszenia, intencje, wydarzenie z przypomnieniem, biuletyn) | redaktor samodzielnie publikuje tydzień |
 | E5-9 | Odbiór: protokół, przekazanie dostępów, start gwarancji 12 mies. | protokół podpisany |
 
 ### Faza 2 (po odbiorze, osobna wycena)
@@ -224,7 +224,7 @@ Zadania z własną datą spoza terminu kamienia milowego: na początku treści I
 | iOS: push tylko po instalacji PWA, część osób nie zainstaluje | mniejszy zasięg (bez e-mail/SMS — D-14) | czytelna instrukcja instalacji, plakat/ogłoszenie z kodem QR w kościele |
 | Poczta w domenie przestanie działać po zmianie NS | wysoki | spis DNS przed migracją, test MX (E5-6) |
 | `@vite-pwa/astro` 2.x — świeża wersja (API zmienione, eksport nazwany) | opóźnienie 1 dzień | przypięte wersje; fallback: własny SW (D-03) |
-| Redaktor bez konta GitHub / bez MFA | brak publikacji | założenie konta w E0-3, szkolenie |
+| Redaktor bez konta GitHub / bez MFA | brak publikacji | założenie konta w E5-8 przed szkoleniem; do tego czasu testy CMS na koncie wykonawcy |
 | Brak materiałów od parafii | opóźnienie odbioru | lista w E0-7, strony z oznaczeniem „do uzupełnienia” nie blokują startu |
 | Publikacja wizerunku dziecka bez zgody rodziców (Kronika) | naruszenie standardów ochrony małoletnich, roszczenia | pole potwierdzenia zgód w CMS, szybkie usuwanie na zgłoszenie |
 | Rozrost zakresu (nekrologi i kronika w MVP) | budżet 14 500 zł | ustalić z parafią aneks lub kompensatę zakresu |

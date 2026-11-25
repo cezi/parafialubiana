@@ -27,7 +27,7 @@ Ostatnia aktualizacja: 2026-11-19 · Synchronizacja: `node scripts/backlog-sync.
 |---|---|---|---|---|
 | E0-1 | Zatwierdzenie decyzji D-01…D-14 | decyzja | done | #15 |
 | E0-2 | Repo, .gitignore, etykiety, kamienie milowe, skrypt backlog-sync, ochrona main | infra | w toku | #16 |
-| E0-3 | Dostępy: Cloudflare (konto wykonawcy), webd.pl, rejestrator, konto GitHub redaktora (MFA) | infra | todo | #17 |
+| E0-3 | Konto Cloudflare (na wykonawcy) — pozostałe dostępy przy przejściu na produkcję | infra | done | #17 |
 | E0-4 | Spike Astro 7 + PWA | pwa | done | #18 |
 | E0-5 | Spike Sveltia + sveltia-cms-auth (GitHub App) | cms | todo | #19 |
 | E0-6 | Spike Web Push w Workerze + pomiar CPU na partię | push | todo | #20 |
@@ -88,9 +88,9 @@ Ostatnia aktualizacja: 2026-11-19 · Synchronizacja: `node scripts/backlog-sync.
 | E5-3 | Testy E2E | jakość | todo | #50 |
 | E5-4 | Testy na urządzeniach | jakość | todo | #51 |
 | E5-5 | Polityka prywatności | frontend | todo | #52 |
-| E5-6 | Migracja domeny i DNS (sprawdzić pocztę w domenie) | infra, migracja | todo | #53 |
+| E5-6 | Migracja domeny i DNS: dostęp do webd.pl i rejestratora, sprawdzić pocztę w domenie | infra, migracja | todo | #53 |
 | E5-7 | Monitoring i backup D1 | infra | todo | #54 |
-| E5-8 | Szkolenie i instrukcja redaktora | cms | todo | #55 |
+| E5-8 | Konto GitHub redaktora (MFA), szkolenie i instrukcja redaktora | cms | todo | #55 |
 | E5-9 | Odbiór + przeniesienie kont na parafię | infra | todo | #56 |
 
 ## Faza 2 (osobna wycena)
