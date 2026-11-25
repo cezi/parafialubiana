@@ -1,0 +1,19 @@
+{
+  // Spike E0-6 — Worker wysyłający Web Push z kolejki (plan Free).
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pl-push-spike",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "observability": { "enabled": true },
+  "d1_databases": [{ "binding": "DB", "database_name": "pl-push-spike-db", "database_id": "368d629c-ffa9-400c-b7a9-cbcd7db50bf0" }],
+  "queues": {
+    "producers": [{ "binding": "QUEUE", "queue": "pl-push-spike-q" }],
+    "consumers": [{ "queue": "pl-push-spike-q", "max_batch_size": 1, "max_batch_timeout": 1, "max_retries": 3 }]
+  },
+  "services": [{ "binding": "MOCK", "service": "pl-push-mock" }],
+  "vars": {
+    "VAPID_PUBLIC": "BGDi-W9oy0TiDLlpWKZQvYaP32BzNjP9pFJuPRKoDvZ7nEkNzXgs3C7Rud5wrCCfqpcGiY47DN-pMkybu_85w2s",
+    "VAPID_SUBJECT": "https://github.com/cezi/parafialubiana"
+  }
+  // Sekrety (wrangler secret put): VAPID_PRIVATE_JWK, SPIKE_KEY
+}

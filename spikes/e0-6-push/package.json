@@ -1,0 +1,12 @@
+{
+  "name": "e0-6-push-spike",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node test/crypto.test.mjs"
+  },
+  "devDependencies": {
+    "http_ece": "1.2.0",
+    "wrangler": "4.168.0"
+  }
+}

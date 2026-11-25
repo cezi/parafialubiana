@@ -95,6 +95,8 @@ Skala: 1700 subskrypcji × 1 kampania/dzień. Każde powiadomienie = szyfrowanie
 **Rekomendacja: architektura A (kolejka + partie + retry + deduplikacja)** — ten sam kod działa na B. Start na Free, test obciążeniowy na 1700 fikcyjnych subskrypcji (własny serwer testowy push). Jeśli CPU na partię przekracza ~6 ms lub błędy 1102 → przełączenie na **B** (zmiana planu, nie kodu). D odrzucić (prywatność, brief).
 **Decyzja (2026-11-19): A — Cloudflare Queues, trzeba zmierzyć** (E0-6). Paid tylko, jeśli pomiar pokaże przekroczenie limitu CPU.
 
+**Wynik pomiaru (2026-11-25): plan Free wystarcza.** 1700 subskrypcji wysłanych w ~100 s; partia 5 subskrypcji na wiadomość kolejki: CPU p99 = 8 ms (limit 10 ms), ~1050 operacji Queues na kampanię (limit 10 000/dzień). Szczegóły: [spikes/e0-6-push/WYNIKI.md](../spikes/e0-6-push/WYNIKI.md).
+
 ---
 
 ### D-06. Synchronizacja harmonogramu wydarzeń/ogłoszeń → D1

@@ -1,0 +1,7 @@
+{
+  // Spike E0-6 — udawany serwer push (wywoływany tylko przez service binding).
+  "name": "pl-push-mock",
+  "main": "index.ts",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": false
+}
