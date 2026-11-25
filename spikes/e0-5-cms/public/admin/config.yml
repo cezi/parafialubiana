@@ -1,0 +1,40 @@
+# Spike E0-5 — Sveltia CMS + Sveltia CMS Additions (logowanie bez konta GitHub).
+# Wpisy testowe trafiają na gałąź spike/e0-5-cms, nie na main.
+backend:
+  name: github
+  repo: cezi/parafialubiana
+  branch: spike/e0-5-cms
+  auth_type: additions
+  base_url: https://parafialubiana-cms.parafialubiana.workers.dev
+
+media_folder: spikes/e0-5-cms/content/media
+public_folder: /media
+
+media_libraries:
+  default:
+    config:
+      max_file_size: 26214400 # 25 MB
+      transformations:
+        raster_image:
+          format: webp
+          quality: 80
+          width: 1600
+          height: 1600
+
+collections:
+  - name: ogloszenia
+    label: Ogłoszenia (test)
+    label_singular: Ogłoszenia tygodnia
+    folder: spikes/e0-5-cms/content/ogloszenia
+    create: true
+    slug: '{{fields.data}}'
+    summary: '{{data}} — {{tytul}}'
+    sortable_fields: [data]
+    fields:
+      - { name: data, label: Data (niedziela), widget: datetime, time_format: false, format: YYYY-MM-DD }
+      - { name: tytul, label: Niedziela / uroczystość, widget: string, hint: 'np. XXXIII Niedziela Zwykła' }
+      - name: punkty
+        label: Punkty ogłoszeń
+        widget: list
+        field: { name: punkt, label: Punkt, widget: markdown, buttons: [bold, italic, link] }
+      - { name: zdjecie, label: Zdjęcie (test kompresji), widget: image, required: false }

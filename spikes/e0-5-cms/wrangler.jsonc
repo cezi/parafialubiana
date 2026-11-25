@@ -1,0 +1,6 @@
+{
+  // Spike E0-5 — statyczna strona z panelem Sveltia (tylko /admin/)
+  "name": "pl-cms-spike",
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "./public" }
+}

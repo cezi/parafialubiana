@@ -1,0 +1,18 @@
+{
+  "name": "parafialubiana-cms",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sveltia CMS Additions (logowanie do panelu treści) na Cloudflare Workers — szablon z sveltia/sveltia-cms-additions",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev"
+  },
+  "dependencies": {
+    "@sveltia/cms-additions": "1.0.2"
+  },
+  "devDependencies": {
+    "wrangler": "4.168.0"
+  }
+}
