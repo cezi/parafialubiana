@@ -9,7 +9,7 @@ Ostatnia aktualizacja: 2026-11-19 · Synchronizacja: `node scripts/backlog-sync.
 | D-01 | Hosting: Cloudflare Workers Static Assets (podgląd na workers.dev) | decyzja, infra | done | #1 |
 | D-02 | Domena przez Cloudflare — przełączenie DNS odłożone | decyzja, infra | done | #2 |
 | D-03 | Astro 7 + @vite-pwa/astro 2 (buildSW) — sprawdzone | decyzja, pwa | done | #3 |
-| D-04 | Logowanie do Sveltia CMS: sveltia-cms-auth + GitHub App | decyzja, cms | done | #4 |
+| D-04 | Logowanie do Sveltia CMS: Sveltia CMS Additions (zmiana 25.11; potwierdzić przed E5-8) | decyzja, cms | done | #4 |
 | D-05 | Web Push: Cloudflare Queues na planie Free — do pomiaru | decyzja, push | done | #5 |
 | D-06 | Synchronizacja harmonogramu: pull /push-schedule.json | decyzja, push | done | #6 |
 | D-07 | Wysyłka z poziomu Sveltia + panel raportów | decyzja, push | done | #7 |
@@ -26,10 +26,10 @@ Ostatnia aktualizacja: 2026-11-19 · Synchronizacja: `node scripts/backlog-sync.
 | ID | Zadanie | Etykiety | Status | Issue |
 |---|---|---|---|---|
 | E0-1 | Zatwierdzenie decyzji D-01…D-14 | decyzja | done | #15 |
-| E0-2 | Repo, .gitignore, etykiety, kamienie milowe, skrypt backlog-sync, ochrona main | infra | w toku | #16 |
+| E0-2 | Repo, .gitignore, etykiety, kamienie milowe, skrypt backlog-sync, ochrona main | infra | done | #16 |
 | E0-3 | Konto Cloudflare (na wykonawcy) — pozostałe dostępy przy przejściu na produkcję | infra | done | #17 |
 | E0-4 | Spike Astro 7 + PWA | pwa | done | #18 |
-| E0-5 | Spike Sveltia + sveltia-cms-auth (GitHub App) | cms | todo | #19 |
+| E0-5 | Spike Sveltia + Sveltia CMS Additions (logowanie bez GitHub) | cms | done | #19 |
 | E0-6 | Spike Web Push w Workerze + pomiar CPU na partię | push | done | #20 |
 | E0-7 | Inwentaryzacja treści WP + lista materiałów od parafii | migracja | done | #21 |
 

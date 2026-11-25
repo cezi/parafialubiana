@@ -31,7 +31,7 @@ Do wdrożenia: **kontakt telefoniczny i e-mail na pierwszym ekranie mobilnym** (
 ## 2. Architektura docelowa (wariant rekomendowany)
 
 ```
-Redaktor ──► /admin (Sveltia CMS) ──OAuth──► Worker „cms-auth” ──► GitHub App
+Redaktor ──► /admin (Sveltia CMS) ──login/hasło──► Worker „cms” (Sveltia CMS Additions, Durable Object) ──► GitHub App
                     │ commit (Markdown/YAML)
                     ▼
             GitHub repo (main) ──► GitHub Actions: walidacja → astro build → wrangler deploy
@@ -76,7 +76,7 @@ Redaktor ──► /admin (Sveltia CMS) ──OAuth──► Worker „cms-auth�
 │  ├─ src/sw/                 # service worker (precache + push + notificationclick)
 │  └─ public/admin/{index.html,config.yml}
 ├─ workers/push/              # Worker API + cron + queue consumer, migracje D1
-├─ workers/cms-auth/          # sveltia-cms-auth (fork/przypięta wersja)
+├─ workers/cms/               # Sveltia CMS Additions (szablon, przypięta wersja)
 ├─ backlog/                   # lokalny backlog, synchronizowany z GitHub Issues
 ├─ docs/                      # brief, plan, decyzje, instrukcja redaktora, runbooki
 └─ .github/workflows/         # ci.yml, deploy.yml, backlog-sync.yml (opcjonalnie)
@@ -117,7 +117,7 @@ Szacunek pracy: ~23–28 dni roboczych łącznie z testami i szkoleniem; bufor n
 | E0-2 | Repo: `git init`, `.gitignore` (w tym `docs/private/`), README, licencja, ochrona `main`, etykiety i kamienie milowe w GitHub | pierwszy push, CSV z e-mailem poza repo |
 | E0-3 | Konto Cloudflare (na wykonawcy — decyzja 2026-11-25). Panel webd.pl i rejestrator → E5-6; konto GitHub redaktora → E5-8 | konto Cloudflare gotowe |
 | E0-4 | Spike Astro 7 + PWA — **wykonany 2026-11-19** (build OK, `buildSW`) | instalacja PWA lokalnie w E3 |
-| E0-5 | Spike Sveltia + `sveltia-cms-auth` (GitHub App) na `*.workers.dev` | logowanie, zapis testowego wpisu, commit w repo |
+| E0-5 | Spike Sveltia + **Sveltia CMS Additions** (zmiana D-04, 2026-11-25) na `*.workers.dev` — **wykonany** | logowanie bez GitHub, zapis wpisu, commit podpisany osobą |
 | E0-6 | Spike push: szyfrowanie Web Push w Workerze + pomiar CPU na partię | raport: ms CPU / powiadomienie; decyzja Free/Paid (D-05) |
 | E0-7 | Pełna inwentaryzacja treści WP (eksport REST API do `migration/`) + lista brakujących materiałów od parafii | lista „do przekazania przez parafię” wysłana |
 
@@ -136,7 +136,7 @@ Szacunek pracy: ~23–28 dni roboczych łącznie z testami i szkoleniem; bufor n
 | ID | Zadanie | Kryterium akceptacji |
 |---|---|---|
 | E2-1 | Schematy Content Collections + walidacja w CI | błędny wpis = czerwony CI z czytelnym komunikatem |
-| E2-2 | Konfiguracja Sveltia: kolekcje, pola po polsku, podpowiedzi, wartości domyślne, podgląd, media (limit rozmiaru) | redaktor dodaje ogłoszenia tygodnia w < 10 min |
+| E2-2 | Konfiguracja Sveltia: kolekcje, pola po polsku, podpowiedzi, wartości domyślne, podgląd, media (limit rozmiaru, WebP 1600); bez wstawiania obrazów w polach tekstowych (`editor_components: []`); CSP dla `/admin/` | redaktor dodaje ogłoszenia tygodnia w < 10 min |
 | E2-3 | Widoki: Start, Ogłoszenia (+archiwum, druk), Intencje (tydzień, nawigacja tygodni), Msze i nabożeństwa | zgodność z prototypem |
 | E2-4 | Terminarz: lista + miesiąc, szczegóły, cykliczność, ICS, status „odwołane” | testy dat (DST, cykliczność „II niedziela miesiąca”) |
 | E2-5 | Parafia: kancelaria i kontakt (mapa statyczna bez śledzenia), Duszpasterze + proboszczowie, grupy, historia, cmentarz, biuletyn (okładka z PDF), ochrona dzieci (standardy w wersji pełnej i skróconej dla małoletnich — art. 22c ust. 7), RODO/polityka prywatności | wszystkie strony z menu prototypu; dział biuletynu i karta na Start ukryte, gdy brak numerów |

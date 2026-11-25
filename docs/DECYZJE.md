@@ -77,6 +77,8 @@ Opcje:
 **Rekomendacja: A.** Panel pod `parafialubiana.pl/admin/`.
 **Decyzja (2026-11-19): A.** Redaktor: do ustalenia (konto GitHub z MFA).
 
+**Zmiana (2026-11-25): Sveltia CMS Additions** — nowe rozwiązanie polecane przez autorów Sveltii (MIT, nasz Cloudflare Free, Durable Object): redaktor (Ksiądz Proboszcz) loguje się **loginem i hasłem, bez konta GitHub**; commity podpisane imieniem osoby. Test E0-5 udany ([spikes/e0-5-cms/WYNIKI.md](../spikes/e0-5-cms/WYNIKI.md)). Ryzyka: brak MFA (w planach), bardzo nowe oprogramowanie. `sveltia-cms-auth` w odwodzie (przejście = 2 linie w `config.yml`). **Ostateczne potwierdzenie przed E5-8.**
+
 ---
 
 ### D-05. Wysyłka Web Push — plan Cloudflare (Free vs Paid)
