@@ -33,7 +33,8 @@
 
 ## Do zrobienia
 
-- [ ] Test na prawdziwym urządzeniu (FCM / Mozilla / Apple): strona `https://pl-push-spike.parafialubiana.workers.dev` → „Włącz powiadomienia” → wysyłka `kind=real`.
+- [x] Test na prawdziwych urządzeniach (2026-11-25): Chrome (FCM `fcm.googleapis.com`) i iPhone z PWA na ekranie początkowym (`web.push.apple.com`) — obie usługi odpowiedziały **201**, powiadomienie wyświetlone, kliknięcie otwiera stronę.
+- Dźwięk: zawsze systemowy (Web API nie pozwala ustawić własnego; tylko `silent` i — na Androidzie — `vibrate`). Użytkownik zmienia go w ustawieniach powiadomień telefonu → dodać tę informację do instrukcji instalacji (E3-3).
 - [ ] Po zakończeniu E0 — usunąć zasoby spike'a: Workery `pl-push-spike`, `pl-push-mock`, bazę `pl-push-spike-db`, kolejkę `pl-push-spike-q`.
 
 ## Uruchomienie
